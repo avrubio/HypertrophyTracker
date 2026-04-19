@@ -122,14 +122,17 @@
         .table-wrapper {
             background: white;
             border-radius: 0 0 8px 8px;
-            overflow: hidden;
+            overflow-x: auto;
+            overflow-y: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            -webkit-overflow-scrolling: touch;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             font-size: 12px;
+            min-width: 1200px;
         }
 
         thead {
@@ -203,6 +206,14 @@
             font-size: 12px;
             text-align: center;
             font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .input-cell input {
+                width: 60px;
+                padding: 8px 6px;
+                font-size: 14px;
+            }
         }
 
         .next-wt {
@@ -638,7 +649,12 @@
 
                 <div class="control-group">
                     <label for="bwInput">⚖️ Bodyweight (lb)</label>
-                    <input type="number" id="bwInput" value="140" onchange="saveBW(); updateWorkout();">
+                    <input type="number" id="bwInput" value="158" onchange="saveBW(); updateWorkout();">
+                </div>
+
+                <div class="control-group">
+                    <label for="startDate">📅 Program Start Date</label>
+                    <input type="date" id="startDate" onchange="saveStartDate(); autoLoadTodaysWorkout();">
                 </div>
 
                 <div class="control-group">
@@ -1639,6 +1655,62 @@
             }
         }
 
+        function saveStartDate() {
+            const date = document.getElementById('startDate').value;
+            if (date) {
+                localStorage.setItem('programStartDate', date);
+            }
+        }
+
+        function loadStartDate() {
+            const saved = localStorage.getItem('programStartDate');
+            if (saved) {
+                document.getElementById('startDate').value = saved;
+            }
+        }
+
+        function autoLoadTodaysWorkout() {
+            const startDateStr = localStorage.getItem('programStartDate');
+            if (!startDateStr) {
+                alert('Please set a program start date first!');
+                return;
+            }
+
+            const startDate = new Date(startDateStr);
+            const today = new Date();
+            
+            // Calculate days elapsed
+            const daysElapsed = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+            
+            if (daysElapsed < 0) {
+                alert('Start date is in the future!');
+                return;
+            }
+
+            // Calculate week (0-5) and day of week
+            const week = Math.floor(daysElapsed / 7) + 1;
+            const dayOfWeek = daysElapsed % 7;
+
+            const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+            // Make sure week is within 1-6
+            if (week > 6) {
+                alert('🎉 Program complete! You finished Week 6.');
+                return;
+            }
+
+            // Set the dropdowns
+            document.getElementById('weekSelect').value = week;
+            document.getElementById('daySelect').value = days[dayOfWeek];
+
+            // Scroll to daily tab and update
+            switchTab('daily');
+            updateWorkout();
+
+            // Show today's info
+            showNotification(`📅 Today: Week ${week}, ${days[dayOfWeek]} (Day ${daysElapsed + 1})`, 'success');
+        }
+
         function sendToGoogleSheetsFromRow(week, day, exerciseName, setNum, suggestedWt, actualWt, reps, rir) {
             if (!window.GOOGLE_SHEET_URL_GLOBAL) return;
             
@@ -1771,8 +1843,15 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             loadBW();
+            loadStartDate();
             loadGSUrl();
             updateWorkout();
+            
+            // Auto-load today's workout if start date is set
+            const startDate = localStorage.getItem('programStartDate');
+            if (startDate) {
+                setTimeout(autoLoadTodaysWorkout, 500);
+            }
         });
     </script>
 </body>
