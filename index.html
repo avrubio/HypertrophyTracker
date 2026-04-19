@@ -437,6 +437,111 @@
             line-height: 1.6;
         }
 
+        .measurements-container {
+            padding: 30px;
+            background: white;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .measurements-input-section {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
+
+        .measurements-input-section h3 {
+            color: #1A1A2E;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .measurements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .measurement-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .measurement-input-group label {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 13px;
+        }
+
+        .measurement-input-group input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .measurements-button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .measurements-button-group button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .measurements-button-group .save-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .measurements-button-group .save-btn:hover {
+            background: #45a049;
+        }
+
+        .measurements-button-group .clear-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        .measurements-button-group .clear-btn:hover {
+            background: #da190b;
+        }
+
+        .measurements-charts-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 25px;
+        }
+
+        .measurement-chart-wrapper {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #764ba2;
+        }
+
+        .measurement-chart-wrapper h4 {
+            color: #1A1A2E;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .measurement-chart {
+            position: relative;
+            height: 280px;
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -499,6 +604,7 @@
             <button class="tab-button active" onclick="switchTab('daily')">📋 Daily Workout</button>
             <button class="tab-button" onclick="switchTab('program')">📊 Full Program</button>
             <button class="tab-button" onclick="switchTab('graphs')">📈 Progress Graphs</button>
+            <button class="tab-button" onclick="switchTab('measurements')">📏 Body Measurements</button>
             <button class="tab-button" onclick="switchTab('info')">ℹ️ Info & Terms</button>
         </div>
 
@@ -617,8 +723,88 @@
             </div>
         </div>
 
-        <!-- INFO & TERMS TAB -->
-        <div id="info" class="tab-content">
+        <!-- BODY MEASUREMENTS TAB -->
+        <div id="measurements" class="tab-content">
+            <div class="measurements-container">
+                <div class="measurements-input-section">
+                    <h3>📏 Log Body Measurements</h3>
+                    
+                    <div class="measurements-grid">
+                        <div class="measurement-input-group">
+                            <label for="measDate">📅 Date</label>
+                            <input type="date" id="measDate">
+                        </div>
+                        <div class="measurement-input-group">
+                            <label for="measBW">⚖️ Bodyweight (lb)</label>
+                            <input type="number" id="measBW" placeholder="e.g. 140" step="0.1">
+                        </div>
+                        <div class="measurement-input-group">
+                            <label for="measWaist">Waist (in)</label>
+                            <input type="number" id="measWaist" placeholder="e.g. 32" step="0.1">
+                        </div>
+                        <div class="measurement-input-group">
+                            <label for="measStomach">Stomach (in)</label>
+                            <input type="number" id="measStomach" placeholder="e.g. 34" step="0.1">
+                        </div>
+                        <div class="measurement-input-group">
+                            <label for="measHips">Hips (in)</label>
+                            <input type="number" id="measHips" placeholder="e.g. 38" step="0.1">
+                        </div>
+                        <div class="measurement-input-group">
+                            <label for="measGlutes">Glutes (in)</label>
+                            <input type="number" id="measGlutes" placeholder="e.g. 42" step="0.1">
+                        </div>
+                        <div class="measurement-input-group">
+                            <label for="measThighs">Thighs (in)</label>
+                            <input type="number" id="measThighs" placeholder="e.g. 24" step="0.1">
+                        </div>
+                        <div class="measurement-input-group">
+                            <label for="measArm">Left Arm Bicep (in)</label>
+                            <input type="number" id="measArm" placeholder="e.g. 14" step="0.1">
+                        </div>
+                    </div>
+
+                    <div class="measurements-button-group">
+                        <button class="save-btn" onclick="saveMeasurements()">💾 Save Measurements</button>
+                        <button class="clear-btn" onclick="clearMeasurementInputs()">🗑️ Clear</button>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="padding: 0 20px; color: #1A1A2E; margin-bottom: 20px;">📊 Measurement Trends</h3>
+                    <div class="measurements-charts-section">
+                        <div class="measurement-chart-wrapper">
+                            <h4>Bodyweight (lb)</h4>
+                            <div class="measurement-chart"><canvas id="bwChart"></canvas></div>
+                        </div>
+                        <div class="measurement-chart-wrapper">
+                            <h4>Waist (in)</h4>
+                            <div class="measurement-chart"><canvas id="waistChart"></canvas></div>
+                        </div>
+                        <div class="measurement-chart-wrapper">
+                            <h4>Stomach (in)</h4>
+                            <div class="measurement-chart"><canvas id="stomachChart"></canvas></div>
+                        </div>
+                        <div class="measurement-chart-wrapper">
+                            <h4>Hips (in)</h4>
+                            <div class="measurement-chart"><canvas id="hipsChart"></canvas></div>
+                        </div>
+                        <div class="measurement-chart-wrapper">
+                            <h4>Glutes (in)</h4>
+                            <div class="measurement-chart"><canvas id="glutesChart"></canvas></div>
+                        </div>
+                        <div class="measurement-chart-wrapper">
+                            <h4>Thighs (in)</h4>
+                            <div class="measurement-chart"><canvas id="thighsChart"></canvas></div>
+                        </div>
+                        <div class="measurement-chart-wrapper">
+                            <h4>Left Arm Bicep (in)</h4>
+                            <div class="measurement-chart"><canvas id="armChart"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
             <div class="info-container">
                 <div class="info-section">
                     <h3>📚 Training Terms & Concepts</h3>
@@ -1197,6 +1383,7 @@
 
             if (tab === 'program') renderProgramView();
             if (tab === 'graphs') renderGraphs();
+            if (tab === 'measurements') setTimeout(loadMeasurementCharts, 100);
         }
 
         function getBW() {
@@ -1458,6 +1645,130 @@
             sendToGoogleSheets(week, day, exerciseName, setNum, suggestedWt, actualWt, reps, rir, '');
         }
 
+        // ==================== MEASUREMENTS FUNCTIONS ====================
+        function saveMeasurements() {
+            const date = document.getElementById('measDate').value;
+            const bw = document.getElementById('measBW').value;
+            const waist = document.getElementById('measWaist').value;
+            const stomach = document.getElementById('measStomach').value;
+            const hips = document.getElementById('measHips').value;
+            const glutes = document.getElementById('measGlutes').value;
+            const thighs = document.getElementById('measThighs').value;
+            const arm = document.getElementById('measArm').value;
+
+            if (!date || !bw) {
+                alert('Please enter at least the date and bodyweight');
+                return;
+            }
+
+            const payload = {
+                type: 'measurement',
+                date: date,
+                bw: bw,
+                waist: waist || '',
+                stomach: stomach || '',
+                hips: hips || '',
+                glutes: glutes || '',
+                thighs: thighs || '',
+                arm: arm || ''
+            };
+
+            if (window.GOOGLE_SHEET_URL_GLOBAL) {
+                fetch(window.GOOGLE_SHEET_URL_GLOBAL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        showNotification('✅ Measurements saved to Google Sheets!', 'success');
+                        clearMeasurementInputs();
+                        loadMeasurementCharts();
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            } else {
+                // Save locally if no Google Sheets
+                let measurements = JSON.parse(localStorage.getItem('measurements') || '[]');
+                measurements.push(payload);
+                localStorage.setItem('measurements', JSON.stringify(measurements));
+                showNotification('✅ Measurements saved locally!', 'success');
+                clearMeasurementInputs();
+                loadMeasurementCharts();
+            }
+        }
+
+        function clearMeasurementInputs() {
+            document.getElementById('measDate').value = '';
+            document.getElementById('measBW').value = '';
+            document.getElementById('measWaist').value = '';
+            document.getElementById('measStomach').value = '';
+            document.getElementById('measHips').value = '';
+            document.getElementById('measGlutes').value = '';
+            document.getElementById('measThighs').value = '';
+            document.getElementById('measArm').value = '';
+        }
+
+        function loadMeasurementCharts() {
+            // Get measurements from localStorage (for now)
+            let measurements = JSON.parse(localStorage.getItem('measurements') || '[]');
+            
+            if (measurements.length === 0) {
+                return; // No data to chart yet
+            }
+
+            // Sort by date
+            measurements.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            const dates = measurements.map(m => m.date);
+            
+            const chartConfig = {
+                type: 'line',
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: false } }
+                }
+            };
+
+            const measurements_list = [
+                { id: 'bwChart', label: 'Bodyweight', key: 'bw', color: '#667eea', unit: 'lb' },
+                { id: 'waistChart', label: 'Waist', key: 'waist', color: '#764ba2', unit: 'in' },
+                { id: 'stomachChart', label: 'Stomach', key: 'stomach', color: '#FF6B9D', unit: 'in' },
+                { id: 'hipsChart', label: 'Hips', key: 'hips', color: '#00D4FF', unit: 'in' },
+                { id: 'glutesChart', label: 'Glutes', key: 'glutes', color: '#FFD700', unit: 'in' },
+                { id: 'thighsChart', label: 'Thighs', key: 'thighs', color: '#90EE90', unit: 'in' },
+                { id: 'armChart', label: 'Left Arm Bicep', key: 'arm', color: '#FF7F50', unit: 'in' }
+            ];
+
+            measurements_list.forEach(m => {
+                const data = measurements.map(meas => meas[m.key] || null);
+                const canvas = document.getElementById(m.id);
+                
+                if (canvas && canvas.offsetParent !== null) { // Only render if visible
+                    new Chart(canvas, {
+                        ...chartConfig,
+                        data: {
+                            labels: dates,
+                            datasets: [{
+                                label: m.label,
+                                data: data,
+                                borderColor: m.color,
+                                backgroundColor: m.color + '20',
+                                fill: true,
+                                tension: 0.4,
+                                pointBackgroundColor: m.color,
+                                pointBorderColor: '#fff',
+                                pointBorderWidth: 2,
+                                pointRadius: 5,
+                            }]
+                        }
+                    });
+                }
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             loadBW();
             loadGSUrl();
@@ -1466,4 +1777,3 @@
     </script>
 </body>
 </html>
-
