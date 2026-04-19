@@ -44,6 +44,7 @@
             display: flex;
             gap: 10px;
             border-bottom: 1px solid #333;
+            overflow-x: auto;
         }
 
         .tab-button {
@@ -56,6 +57,7 @@
             font-weight: 600;
             border-bottom: 3px solid transparent;
             transition: all 0.3s;
+            white-space: nowrap;
         }
 
         .tab-button.active {
@@ -263,66 +265,92 @@
             padding: 30px;
             background: white;
             border-radius: 0 0 8px 8px;
+            max-height: calc(100vh - 400px);
+            overflow-y: auto;
         }
 
         .program-week {
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             background: #f9f9f9;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #667eea;
+        }
+
+        .program-week h2 {
+            color: #1A1A2E;
+            margin-bottom: 25px;
+            font-size: 22px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .week-days {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 25px;
+        }
+
+        .day-block {
+            background: white;
             padding: 20px;
             border-radius: 6px;
-            border-left: 4px solid #667eea;
-        }
-
-        .program-week h3 {
-            color: #1A1A2E;
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-
-        .exercises-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .exercise-card {
-            background: white;
-            padding: 15px;
-            border-radius: 6px;
+            border-top: 3px solid #764ba2;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .exercise-card h4 {
-            color: #667eea;
-            margin-bottom: 10px;
-            font-size: 14px;
+        .day-block h3 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 700;
         }
 
-        .exercise-card .day {
+        .session-type {
             color: #999;
             font-size: 12px;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            font-style: italic;
         }
 
-        .exercise-card .details {
-            font-size: 13px;
-            line-height: 1.6;
+        .exercise-item {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eee;
         }
 
-        .detail-row {
+        .exercise-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .exercise-item-name {
+            font-weight: 700;
+            color: #1A1A2E;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .exercise-item-details {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .detail {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .detail-label {
             font-weight: 600;
-            color: #666;
+            color: #764ba2;
         }
 
         .detail-value {
-            color: #1A1A2E;
-            font-weight: bold;
+            color: #333;
         }
 
         .graphs-container {
@@ -350,6 +378,65 @@
             margin-bottom: 20px;
         }
 
+        .info-container {
+            padding: 30px;
+            background: white;
+            border-radius: 0 0 8px 8px;
+            max-height: calc(100vh - 400px);
+            overflow-y: auto;
+        }
+
+        .info-section {
+            margin-bottom: 40px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+
+        .info-section h3 {
+            color: #1A1A2E;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .term {
+            margin-bottom: 20px;
+        }
+
+        .term-title {
+            font-weight: 700;
+            color: #667eea;
+            font-size: 15px;
+            margin-bottom: 6px;
+        }
+
+        .term-definition {
+            color: #333;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .principle {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border-left: 3px solid #764ba2;
+        }
+
+        .principle h4 {
+            color: #764ba2;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .principle p {
+            color: #555;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -365,13 +452,11 @@
 
             .tabs {
                 padding: 0 15px;
-                overflow-x: auto;
             }
 
             .tab-button {
                 padding: 12px 15px;
                 font-size: 12px;
-                white-space: nowrap;
             }
 
             .controls {
@@ -393,7 +478,7 @@
                 font-size: 10px;
             }
 
-            .exercises-grid {
+            .week-days {
                 grid-template-columns: 1fr;
             }
 
@@ -414,6 +499,7 @@
             <button class="tab-button active" onclick="switchTab('daily')">📋 Daily Workout</button>
             <button class="tab-button" onclick="switchTab('program')">📊 Full Program</button>
             <button class="tab-button" onclick="switchTab('graphs')">📈 Progress Graphs</button>
+            <button class="tab-button" onclick="switchTab('info')">ℹ️ Info & Terms</button>
         </div>
 
         <!-- DAILY WORKOUT TAB -->
@@ -453,10 +539,16 @@
                     <label for="incInput">📈 Weight Inc (lb)</label>
                     <input type="number" id="incInput" value="5" onchange="updateWorkout();">
                 </div>
+
+                <div class="control-group">
+                    <label for="gsInput">☁️ Google Sheets URL (Optional)</label>
+                    <input type="text" id="gsInput" placeholder="Paste deployment URL here" style="font-size: 12px;">
+                    <button onclick="saveGSUrl()" style="padding: 6px 10px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 5px; font-weight: bold;">Save URL</button>
+                </div>
             </div>
 
             <div class="info-banner">
-                💡 <strong>BW exercises scale</strong> with your bodyweight | <strong>Blue</strong> = Suggested weight | <strong>Orange</strong> = Your performance | <strong>Green</strong> = Next weight
+                💡 <strong>BW exercises scale</strong> with your bodyweight | <strong>Blue</strong> = Suggested weight | <strong>Orange</strong> = Your performance | <strong>Green</strong> = Next weight | ☁️ <strong>Add Google Sheets URL</strong> to auto-save progress!
             </div>
 
             <div class="stats" id="statsContainer"></div>
@@ -514,7 +606,7 @@
                 </div>
 
                 <div class="graph-section">
-                    <h3>📈 Progressive Overload: Pull-Up (BW-Assisted)</h3>
+                    <h3>📈 Progressive Overload: Pull-Up (BW)</h3>
                     <div class="chart-wrapper"><canvas id="pullupChart"></canvas></div>
                 </div>
 
@@ -524,151 +616,577 @@
                 </div>
             </div>
         </div>
+
+        <!-- INFO & TERMS TAB -->
+        <div id="info" class="tab-content">
+            <div class="info-container">
+                <div class="info-section">
+                    <h3>📚 Training Terms & Concepts</h3>
+
+                    <div class="term">
+                        <div class="term-title">RIR (Reps In Reserve)</div>
+                        <div class="term-definition">The number of repetitions you could have completed beyond the ones you actually performed. For example, if you complete 10 reps with 3 RIR, you could have done 13 total reps before failing. This is a key metric for managing training intensity and fatigue.</div>
+                    </div>
+
+                    <div class="term">
+                        <div class="term-title">Progressive Overload</div>
+                        <div class="term-definition">Gradually increasing the demands on your muscles over time. This can be done by increasing weight, reps, sets, or decreasing rest periods. Progressive overload is essential for continued muscle growth and strength gains.</div>
+                    </div>
+
+                    <div class="term">
+                        <div class="term-title">Hypertrophy</div>
+                        <div class="term-definition">The increase in muscle size. This program focuses on hypertrophy through moderate to high reps (6-20 range), controlled tempos, and progressive increases in volume and intensity.</div>
+                    </div>
+
+                    <div class="term">
+                        <div class="term-title">Volume (Training Volume)</div>
+                        <div class="term-definition">Total amount of work performed, calculated as sets × reps × weight. Higher volume generally drives more muscle growth when managed properly. This program progressively increases volume from W1-W5, then deloads in W6.</div>
+                    </div>
+
+                    <div class="term">
+                        <div class="term-title">Time Under Tension (TUT)</div>
+                        <div class="term-definition">The total duration your muscles spend working during a set. Longer TUT (30-60+ seconds) is optimal for hypertrophy. This can be achieved through slower tempos or higher reps.</div>
+                    </div>
+
+                    <div class="term">
+                        <div class="term-title">Deload Week</div>
+                        <div class="term-definition">A planned recovery week (Week 6 in this program) where volume and intensity are reduced significantly (4+ RIR). This allows your body to recover, prevent injury, and prepare for the next training block.</div>
+                    </div>
+
+                    <div class="term">
+                        <div class="term-title">Compound Exercises</div>
+                        <div class="term-definition">Multi-joint movements that work multiple muscle groups (Hip Thrust, Squat, Row). These are efficient for building strength and muscle across large muscle groups.</div>
+                    </div>
+
+                    <div class="term">
+                        <div class="term-title">Isolation Exercises</div>
+                        <div class="term-definition">Single-joint movements that target one specific muscle (Cable Kickback, Lat Pulldown). These are excellent for targeting specific muscles and finishing off a workout.</div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>🍑 Bret Contreras - Glute Lab Principles</h3>
+
+                    <div class="principle">
+                        <h4>1. The Glutes Are the Largest and Strongest Muscles</h4>
+                        <p>The gluteus maximus is capable of producing enormous amounts of force and has tremendous growth potential. The glutes should be prioritized in any lower body program.</p>
+                    </div>
+
+                    <div class="principle">
+                        <h4>2. Horizontal Abduction & Extension Are Key</h4>
+                        <p>The glutes are best activated through hip extension (Hip Thrusts, RDLs) and horizontal abduction (Cable Kickbacks). These movements maximize glute recruitment.</p>
+                    </div>
+
+                    <div class="principle">
+                        <h4>3. Range of Motion Matters</h4>
+                        <p>Full range of motion is critical for glute development. Deep squats, full hip extension, and controlled eccentric movements all contribute to maximum glute growth.</p>
+                    </div>
+
+                    <div class="principle">
+                        <h4>4. Strength & Hypertrophy Go Hand-in-Hand</h4>
+                        <p>Getting stronger in compound movements drives muscle growth. This program combines heavy strength work with higher-rep isolation for optimal hypertrophy.</p>
+                    </div>
+
+                    <div class="principle">
+                        <h4>5. Volume & Frequency Are Critical</h4>
+                        <p>Glutes respond extremely well to high volume and high frequency (3-4x per week). This program hits glutes 4-5 days per week through different movement patterns.</p>
+                    </div>
+
+                    <div class="principle">
+                        <h4>6. Mind-Muscle Connection is Real</h4>
+                        <p>Actively squeezing and "feeling" the glutes work increases activation. Slower tempos and pauses enhance mind-muscle connection, especially on isolation exercises.</p>
+                    </div>
+
+                    <div class="principle">
+                        <h4>7. Recovery & Deloads Are Essential</h4>
+                        <p>Muscles grow during rest. Week 6's deload reduces accumulated fatigue and prevents overuse injuries while preparing you for the next training block.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script>
-        // COMPLETE 6-WEEK PROGRAM DATA - ALL EXERCISES
+        // ==================== GOOGLE SHEETS CONFIG ====================
+        // Will be loaded from localStorage on page load
+        let GOOGLE_SHEET_URL_GLOBAL = "https://script.google.com/macros/s/AKfycbysuwf65IxjwpqAB2rq42qwf8F5Bhn8HavjWZykidDIUb_K06I_umEK8An--YYkn0kgIA/exec";
+        
+        function sendToGoogleSheets(week, day, exercise, setNum, suggestedWt, actualWt, reps, rir, notes) {
+            if (!GOOGLE_SHEET_URL_GLOBAL) {
+                return;
+            }
+
+            const payload = {
+                week: week,
+                day: day,
+                exercise: exercise,
+                set: setNum,
+                suggestedWt: suggestedWt,
+                actualWt: actualWt,
+                reps: reps,
+                rir: rir,
+                notes: notes
+            };
+
+            fetch(GOOGLE_SHEET_URL_GLOBAL, {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showNotification('✅ Saved to Google Sheets!', 'success');
+                }
+            })
+            .catch(error => console.error('Sheets error:', error));
+        }
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                background: ${type === 'success' ? '#4CAF50' : '#f44336'};
+                color: white;
+                border-radius: 4px;
+                font-weight: bold;
+                z-index: 10000;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 2000);
+        }
+
+        // ==================== COMPLETE 6-WEEK PROGRAM DATA ====================
         const programData = [
-            // ===== WEEK 1 =====
-            // WEEK 1 - MONDAY
-            {w:1, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell Hip Thrust", h:"DB/Banded Hip Thrust", c:"Glutes", set:1, rL:6, rH:10, r:"3 RIR", b:90, n:"Pause 1-2s", isBW:false},
-            {w:1, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell Hip Thrust", h:"DB/Banded Hip Thrust", c:"Glutes", set:2, rL:6, rH:10, r:"3 RIR", b:90, n:"Pause 1-2s", isBW:false},
-            {w:1, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell Hip Thrust", h:"DB/Banded Hip Thrust", c:"Glutes", set:3, rL:6, rH:10, r:"3 RIR", b:90, n:"Pause 1-2s", isBW:false},
-            {w:1, d:"Monday", s:"Legs/Glutes", e:"Smith Squat", g:"Smith Machine", h:"Goblet Squat", c:"Glutes", set:1, rL:6, rH:10, r:"3 RIR", b:90, n:"Deep control", isBW:false},
-            {w:1, d:"Monday", s:"Legs/Glutes", e:"Smith Squat", g:"Smith Machine", h:"Goblet Squat", c:"Glutes", set:2, rL:6, rH:10, r:"3 RIR", b:90, n:"Deep control", isBW:false},
-            {w:1, d:"Monday", s:"Legs/Glutes", e:"RDL", g:"Romanian DL", h:"DB RDL", c:"Glutes", set:1, rL:8, rH:10, r:"3 RIR", b:0, n:"Hips back", isBW:false},
-            {w:1, d:"Monday", s:"Legs/Glutes", e:"RDL", g:"Romanian DL", h:"DB RDL", c:"Glutes", set:2, rL:8, rH:10, r:"3 RIR", b:0, n:"Hips back", isBW:false},
-            {w:1, d:"Monday", s:"Legs/Glutes", e:"Single Leg Press", g:"SLP Machine", h:"Split Squat", c:"Glutes", set:1, rL:10, rH:12, r:"3 RIR", b:90, n:"Full ROM", isBW:false},
-            {w:1, d:"Monday", s:"Legs/Glutes", e:"Single Leg Press", g:"SLP Machine", h:"Split Squat", c:"Glutes", set:2, rL:10, rH:12, r:"3 RIR", b:90, n:"Full ROM", isBW:false},
-            // WEEK 1 - TUESDAY
-            {w:1, d:"Tuesday", s:"Upper Aerial", e:"Pull-Up", g:"Pull-Up", h:"Band Pull-Up", c:"Upper", set:1, rL:4, rH:8, r:"3 RIR", b:0, n:"Full hang", isBW:true},
-            {w:1, d:"Tuesday", s:"Upper Aerial", e:"Pull-Up", g:"Pull-Up", h:"Band Pull-Up", c:"Upper", set:2, rL:4, rH:8, r:"3 RIR", b:0, n:"Full hang", isBW:true},
-            {w:1, d:"Tuesday", s:"Upper Aerial", e:"Pull-Up", g:"Pull-Up", h:"Band Pull-Up", c:"Upper", set:3, rL:4, rH:8, r:"3 RIR", b:0, n:"Full hang", isBW:true},
-            {w:1, d:"Tuesday", s:"Upper Aerial", e:"Pull-Up", g:"Pull-Up", h:"Band Pull-Up", c:"Upper", set:4, rL:4, rH:8, r:"3 RIR", b:0, n:"Full hang", isBW:true},
-            {w:1, d:"Tuesday", s:"Upper Aerial", e:"Single-Arm Row", g:"1-Arm Row", h:"DB Row", c:"Upper", set:1, rL:8, rH:12, r:"3 RIR", b:30, n:"Ribcage squeeze", isBW:false},
-            {w:1, d:"Tuesday", s:"Upper Aerial", e:"Single-Arm Row", g:"1-Arm Row", h:"DB Row", c:"Upper", set:2, rL:8, rH:12, r:"3 RIR", b:30, n:"Ribcage squeeze", isBW:false},
-            {w:1, d:"Tuesday", s:"Upper Aerial", e:"Single-Arm Row", g:"1-Arm Row", h:"DB Row", c:"Upper", set:3, rL:8, rH:12, r:"3 RIR", b:30, n:"Ribcage squeeze", isBW:false},
-            {w:1, d:"Tuesday", s:"Upper Aerial", e:"Lat Pulldown", g:"Lat PD", h:"Band PD", c:"Upper", set:1, rL:8, rH:12, r:"3 RIR", b:0, n:"Elbows to ribs", isBW:false},
-            {w:1, d:"Tuesday", s:"Upper Aerial", e:"Lat Pulldown", g:"Lat PD", h:"Band PD", c:"Upper", set:2, rL:8, rH:12, r:"3 RIR", b:0, n:"Elbows to ribs", isBW:false},
-            {w:1, d:"Tuesday", s:"Upper Aerial", e:"Lat Pulldown", g:"Lat PD", h:"Band PD", c:"Upper", set:3, rL:8, rH:12, r:"3 RIR", b:0, n:"Elbows to ribs", isBW:false},
-            // WEEK 1 - WEDNESDAY
-            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Zone 2 Cardio", g:"Treadmill", h:"Jog", c:"Cardio", set:1, rL:20, rH:35, r:"easy", b:0, n:"Steady", isBW:false},
-            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Plank", g:"Front Plank", h:"Front Plank", c:"Core", set:1, rL:30, rH:60, r:"tech", b:0, n:"Glutes squeezed", isBW:false},
-            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Plank", g:"Front Plank", h:"Front Plank", c:"Core", set:2, rL:30, rH:60, r:"tech", b:0, n:"Glutes squeezed", isBW:false},
-            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Plank", g:"Front Plank", h:"Front Plank", c:"Core", set:3, rL:30, rH:60, r:"tech", b:0, n:"Glutes squeezed", isBW:false},
-            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Hollow Hold", g:"Hollow Hold", h:"Hollow Hold", c:"Core", set:1, rL:20, rH:40, r:"tech", b:0, n:"Ribs down", isBW:false},
-            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Hollow Hold", g:"Hollow Hold", h:"Hollow Hold", c:"Core", set:2, rL:20, rH:40, r:"tech", b:0, n:"Ribs down", isBW:false},
-            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Hollow Hold", g:"Hollow Hold", h:"Hollow Hold", c:"Core", set:3, rL:20, rH:40, r:"tech", b:0, n:"Ribs down", isBW:false},
-            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Hanging Knee Raise", g:"HKR", h:"Reverse Crunch", c:"Core", set:1, rL:8, rH:15, r:"3 RIR", b:0, n:"PPT", isBW:false},
-            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Hanging Knee Raise", g:"HKR", h:"Reverse Crunch", c:"Core", set:2, rL:8, rH:15, r:"3 RIR", b:0, n:"PPT", isBW:false},
-            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Hanging Knee Raise", g:"HKR", h:"Reverse Crunch", c:"Core", set:3, rL:8, rH:15, r:"3 RIR", b:0, n:"PPT", isBW:false},
-            // WEEK 1 - THURSDAY
-            {w:1, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB KGB", c:"Glutes", set:1, rL:10, rH:15, r:"3 RIR", b:140, n:"ROM squeeze", isBW:false},
-            {w:1, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB KGB", c:"Glutes", set:2, rL:10, rH:15, r:"3 RIR", b:140, n:"ROM squeeze", isBW:false},
-            {w:1, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB KGB", c:"Glutes", set:3, rL:10, rH:15, r:"3 RIR", b:140, n:"ROM squeeze", isBW:false},
-            {w:1, d:"Thursday", s:"Legs Vol", e:"Romanian Split Squat", g:"RSS", h:"Elevated Split", c:"Glutes", set:1, rL:10, rH:15, r:"3 RIR", b:15, n:"Long stride", isBW:false},
-            {w:1, d:"Thursday", s:"Legs Vol", e:"Romanian Split Squat", g:"RSS", h:"Elevated Split", c:"Glutes", set:2, rL:10, rH:15, r:"3 RIR", b:15, n:"Long stride", isBW:false},
-            {w:1, d:"Thursday", s:"Legs Vol", e:"Walking Lunge", g:"Walking Lunge", h:"Reverse Lunge", c:"Glutes", set:1, rL:12, rH:20, r:"3 RIR", b:15, n:"Long steps", isBW:false},
-            {w:1, d:"Thursday", s:"Legs Vol", e:"Walking Lunge", g:"Walking Lunge", h:"Reverse Lunge", c:"Glutes", set:2, rL:12, rH:20, r:"3 RIR", b:15, n:"Long steps", isBW:false},
-            {w:1, d:"Thursday", s:"Legs Vol", e:"Cable Kickback", g:"Cable KB", h:"Band KB", c:"Glutes", set:1, rL:15, rH:20, r:"3 RIR", b:0, n:"Control", isBW:false},
-            {w:1, d:"Thursday", s:"Legs Vol", e:"Cable Kickback", g:"Cable KB", h:"Band KB", c:"Glutes", set:2, rL:15, rH:20, r:"3 RIR", b:0, n:"Control", isBW:false},
-            // WEEK 1 - FRIDAY
-            {w:1, d:"Friday", s:"Upper Comp", e:"Push-Up", g:"Push-Up", h:"Push-Up", c:"Upper", set:1, rL:6, rH:12, r:"3 RIR", b:0, n:"Tension", isBW:true},
-            {w:1, d:"Friday", s:"Upper Comp", e:"Push-Up", g:"Push-Up", h:"Push-Up", c:"Upper", set:2, rL:6, rH:12, r:"3 RIR", b:0, n:"Tension", isBW:true},
-            {w:1, d:"Friday", s:"Upper Comp", e:"Push-Up", g:"Push-Up", h:"Push-Up", c:"Upper", set:3, rL:6, rH:12, r:"3 RIR", b:0, n:"Tension", isBW:true},
-            {w:1, d:"Friday", s:"Upper Comp", e:"Single-Arm Row", g:"1-Arm Row", h:"DB Row", c:"Upper", set:1, rL:8, rH:12, r:"3 RIR", b:30, n:"Ribcage", isBW:false},
-            {w:1, d:"Friday", s:"Upper Comp", e:"Single-Arm Row", g:"1-Arm Row", h:"DB Row", c:"Upper", set:2, rL:8, rH:12, r:"3 RIR", b:30, n:"Ribcage", isBW:false},
-            {w:1, d:"Friday", s:"Upper Comp", e:"Single-Arm Row", g:"1-Arm Row", h:"DB Row", c:"Upper", set:3, rL:8, rH:12, r:"3 RIR", b:30, n:"Ribcage", isBW:false},
-            {w:1, d:"Friday", s:"Upper Comp", e:"Negative Pull-Up", g:"Eccentric PU", h:"Band Neg", c:"Upper", set:1, rL:3, rH:5, r:"ctrl", b:0, n:"3-5s lower", isBW:true},
-            {w:1, d:"Friday", s:"Upper Comp", e:"Negative Pull-Up", g:"Eccentric PU", h:"Band Neg", c:"Upper", set:2, rL:3, rH:5, r:"ctrl", b:0, n:"3-5s lower", isBW:true},
-            {w:1, d:"Friday", s:"Upper Comp", e:"Negative Pull-Up", g:"Eccentric PU", h:"Band Neg", c:"Upper", set:3, rL:3, rH:5, r:"ctrl", b:0, n:"3-5s lower", isBW:true},
-            {w:1, d:"Friday", s:"Upper Comp", e:"L-Hold", g:"L-Hold", h:"Parallette", c:"Core", set:1, rL:10, rH:25, r:"tech", b:0, n:"Shoulders", isBW:false},
-            {w:1, d:"Friday", s:"Upper Comp", e:"Straddle Leg Lift", g:"Straddle", h:"Straddle", c:"Core", set:1, rL:6, rH:12, r:"tech", b:0, n:"Tall chest", isBW:false},
-            // WEEK 1 - SATURDAY
-            {w:1, d:"Saturday", s:"Recovery", e:"Rest", g:"Stretching", h:"Stretching", c:"Recovery", set:1, rL:30, rH:60, r:"easy", b:0, n:"Optional", isBW:false},
-            // WEEK 1 - SUNDAY
-            {w:1, d:"Sunday", s:"Aerial", e:"Aerial Class", g:"Silks/Lyra", h:"Silks/Lyra", c:"Skill", set:1, rL:45, rH:75, r:"skill", b:0, n:"Alternate", isBW:false},
+            // ==================== WEEK 1 ====================
+            // W1 MONDAY - Legs/Glutes (Heavy)
+            {w:1, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell Hip Thrust", h:"DB/Band Hip Thrust", set:1, rL:6, rH:10, r:"3 RIR", b:90, isBW:false, n:"Pause 1-2s"},
+            {w:1, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell Hip Thrust", h:"DB/Band Hip Thrust", set:2, rL:6, rH:10, r:"3 RIR", b:90, isBW:false, n:"Pause 1-2s"},
+            {w:1, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell Hip Thrust", h:"DB/Band Hip Thrust", set:3, rL:6, rH:10, r:"3 RIR", b:90, isBW:false, n:"Pause 1-2s"},
+            {w:1, d:"Monday", s:"Legs/Glutes", e:"Smith Squat", g:"Smith Machine", h:"Goblet Squat", set:1, rL:6, rH:10, r:"3 RIR", b:90, isBW:false, n:"Deep ROM"},
+            {w:1, d:"Monday", s:"Legs/Glutes", e:"Smith Squat", g:"Smith Machine", h:"Goblet Squat", set:2, rL:6, rH:10, r:"3 RIR", b:90, isBW:false, n:"Deep ROM"},
+            {w:1, d:"Monday", s:"Legs/Glutes", e:"RDL", g:"Romanian DL", h:"DB RDL", set:1, rL:8, rH:10, r:"3 RIR", b:0, isBW:false, n:"Hips back"},
+            {w:1, d:"Monday", s:"Legs/Glutes", e:"RDL", g:"Romanian DL", h:"DB RDL", set:2, rL:8, rH:10, r:"3 RIR", b:0, isBW:false, n:"Hips back"},
+            {w:1, d:"Monday", s:"Legs/Glutes", e:"Single Leg Press", g:"SLP Machine", h:"Split Squat", set:1, rL:10, rH:12, r:"3 RIR", b:90, isBW:false, n:"Full ROM"},
+            {w:1, d:"Monday", s:"Legs/Glutes", e:"Single Leg Press", g:"SLP Machine", h:"Split Squat", set:2, rL:10, rH:12, r:"3 RIR", b:90, isBW:false, n:"Full ROM"},
 
-            // ===== WEEK 2-6 (condensed for space) =====
-            // Week 2
-            {w:2, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell", h:"DB", c:"Glutes", set:1, rL:6, rH:10, r:"2 RIR", b:95, n:"Pause", isBW:false},
-            {w:2, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell", h:"DB", c:"Glutes", set:2, rL:6, rH:10, r:"2 RIR", b:95, n:"Pause", isBW:false},
-            {w:2, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell", h:"DB", c:"Glutes", set:3, rL:6, rH:10, r:"2 RIR", b:95, n:"Pause", isBW:false},
-            {w:2, d:"Monday", s:"Legs/Glutes", e:"Smith Squat", g:"Smith", h:"Goblet", c:"Glutes", set:1, rL:6, rH:10, r:"2 RIR", b:95, n:"Deep", isBW:false},
-            {w:2, d:"Monday", s:"Legs/Glutes", e:"Smith Squat", g:"Smith", h:"Goblet", c:"Glutes", set:2, rL:6, rH:10, r:"2 RIR", b:95, n:"Deep", isBW:false},
-            {w:2, d:"Monday", s:"Legs/Glutes", e:"RDL", g:"Romanian", h:"DB", c:"Glutes", set:1, rL:8, rH:10, r:"2 RIR", b:5, n:"Hips", isBW:false},
-            {w:2, d:"Monday", s:"Legs/Glutes", e:"RDL", g:"Romanian", h:"DB", c:"Glutes", set:2, rL:8, rH:10, r:"2 RIR", b:5, n:"Hips", isBW:false},
-            {w:2, d:"Monday", s:"Legs/Glutes", e:"Single Leg Press", g:"SLP", h:"Split", c:"Glutes", set:1, rL:10, rH:12, r:"2 RIR", b:95, n:"ROM", isBW:false},
-            {w:2, d:"Monday", s:"Legs/Glutes", e:"Single Leg Press", g:"SLP", h:"Split", c:"Glutes", set:2, rL:10, rH:12, r:"2 RIR", b:95, n:"ROM", isBW:false},
-            {w:2, d:"Tuesday", s:"Upper", e:"Pull-Up", g:"PU", h:"Band", c:"Upper", set:1, rL:4, rH:8, r:"2 RIR", b:0, n:"Hang", isBW:true},
-            {w:2, d:"Tuesday", s:"Upper", e:"Pull-Up", g:"PU", h:"Band", c:"Upper", set:2, rL:4, rH:8, r:"2 RIR", b:0, n:"Hang", isBW:true},
-            {w:2, d:"Tuesday", s:"Upper", e:"Pull-Up", g:"PU", h:"Band", c:"Upper", set:3, rL:4, rH:8, r:"2 RIR", b:0, n:"Hang", isBW:true},
-            {w:2, d:"Tuesday", s:"Upper", e:"Pull-Up", g:"PU", h:"Band", c:"Upper", set:4, rL:4, rH:8, r:"2 RIR", b:0, n:"Hang", isBW:true},
-            {w:2, d:"Tuesday", s:"Upper", e:"Single-Arm Row", g:"Row", h:"DB", c:"Upper", set:1, rL:8, rH:12, r:"2 RIR", b:35, n:"Rib", isBW:false},
-            {w:2, d:"Tuesday", s:"Upper", e:"Single-Arm Row", g:"Row", h:"DB", c:"Upper", set:2, rL:8, rH:12, r:"2 RIR", b:35, n:"Rib", isBW:false},
-            {w:2, d:"Tuesday", s:"Upper", e:"Single-Arm Row", g:"Row", h:"DB", c:"Upper", set:3, rL:8, rH:12, r:"2 RIR", b:35, n:"Rib", isBW:false},
-            {w:2, d:"Tuesday", s:"Upper", e:"Lat Pulldown", g:"Lat", h:"Band", c:"Upper", set:1, rL:8, rH:12, r:"2 RIR", b:5, n:"Elbow", isBW:false},
-            {w:2, d:"Tuesday", s:"Upper", e:"Lat Pulldown", g:"Lat", h:"Band", c:"Upper", set:2, rL:8, rH:12, r:"2 RIR", b:5, n:"Elbow", isBW:false},
-            {w:2, d:"Tuesday", s:"Upper", e:"Lat Pulldown", g:"Lat", h:"Band", c:"Upper", set:3, rL:8, rH:12, r:"2 RIR", b:5, n:"Elbow", isBW:false},
-            {w:2, d:"Wednesday", s:"Cardio", e:"Zone 2 Cardio", g:"Tread", h:"Jog", c:"Cardio", set:1, rL:20, rH:35, r:"easy", b:0, n:"Steady", isBW:false},
-            {w:2, d:"Wednesday", s:"Cardio", e:"Plank", g:"Plank", h:"Plank", c:"Core", set:1, rL:30, rH:60, r:"tech", b:0, n:"Glute", isBW:false},
-            {w:2, d:"Wednesday", s:"Cardio", e:"Plank", g:"Plank", h:"Plank", c:"Core", set:2, rL:30, rH:60, r:"tech", b:0, n:"Glute", isBW:false},
-            {w:2, d:"Wednesday", s:"Cardio", e:"Plank", g:"Plank", h:"Plank", c:"Core", set:3, rL:30, rH:60, r:"tech", b:0, n:"Glute", isBW:false},
-            {w:2, d:"Wednesday", s:"Cardio", e:"Hollow Hold", g:"Hollow", h:"Hollow", c:"Core", set:1, rL:20, rH:40, r:"tech", b:0, n:"Ribs", isBW:false},
-            {w:2, d:"Wednesday", s:"Cardio", e:"Hollow Hold", g:"Hollow", h:"Hollow", c:"Core", set:2, rL:20, rH:40, r:"tech", b:0, n:"Ribs", isBW:false},
-            {w:2, d:"Wednesday", s:"Cardio", e:"Hollow Hold", g:"Hollow", h:"Hollow", c:"Core", set:3, rL:20, rH:40, r:"tech", b:0, n:"Ribs", isBW:false},
-            {w:2, d:"Wednesday", s:"Cardio", e:"Hanging Knee Raise", g:"HKR", h:"Crunch", c:"Core", set:1, rL:8, rH:15, r:"2 RIR", b:0, n:"PPT", isBW:false},
-            {w:2, d:"Wednesday", s:"Cardio", e:"Hanging Knee Raise", g:"HKR", h:"Crunch", c:"Core", set:2, rL:8, rH:15, r:"2 RIR", b:0, n:"PPT", isBW:false},
-            {w:2, d:"Wednesday", s:"Cardio", e:"Hanging Knee Raise", g:"HKR", h:"Crunch", c:"Core", set:3, rL:8, rH:15, r:"2 RIR", b:0, n:"PPT", isBW:false},
-            {w:2, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", c:"Glutes", set:1, rL:10, rH:15, r:"2 RIR", b:145, n:"ROM", isBW:false},
-            {w:2, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", c:"Glutes", set:2, rL:10, rH:15, r:"2 RIR", b:145, n:"ROM", isBW:false},
-            {w:2, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", c:"Glutes", set:3, rL:10, rH:15, r:"2 RIR", b:145, n:"ROM", isBW:false},
-            {w:2, d:"Thursday", s:"Legs Vol", e:"Romanian Split Squat", g:"RSS", h:"Split", c:"Glutes", set:1, rL:10, rH:15, r:"2 RIR", b:20, n:"Stride", isBW:false},
-            {w:2, d:"Thursday", s:"Legs Vol", e:"Romanian Split Squat", g:"RSS", h:"Split", c:"Glutes", set:2, rL:10, rH:15, r:"2 RIR", b:20, n:"Stride", isBW:false},
-            {w:2, d:"Thursday", s:"Legs Vol", e:"Walking Lunge", g:"Lunge", h:"Reverse", c:"Glutes", set:1, rL:12, rH:20, r:"2 RIR", b:20, n:"Steps", isBW:false},
-            {w:2, d:"Thursday", s:"Legs Vol", e:"Walking Lunge", g:"Lunge", h:"Reverse", c:"Glutes", set:2, rL:12, rH:20, r:"2 RIR", b:20, n:"Steps", isBW:false},
-            {w:2, d:"Thursday", s:"Legs Vol", e:"Cable Kickback", g:"Cable", h:"Band", c:"Glutes", set:1, rL:15, rH:20, r:"2 RIR", b:5, n:"Control", isBW:false},
-            {w:2, d:"Thursday", s:"Legs Vol", e:"Cable Kickback", g:"Cable", h:"Band", c:"Glutes", set:2, rL:15, rH:20, r:"2 RIR", b:5, n:"Control", isBW:false},
-            {w:2, d:"Friday", s:"Upper", e:"Push-Up", g:"PU", h:"PU", c:"Upper", set:1, rL:6, rH:12, r:"2 RIR", b:0, n:"Tension", isBW:true},
-            {w:2, d:"Friday", s:"Upper", e:"Push-Up", g:"PU", h:"PU", c:"Upper", set:2, rL:6, rH:12, r:"2 RIR", b:0, n:"Tension", isBW:true},
-            {w:2, d:"Friday", s:"Upper", e:"Push-Up", g:"PU", h:"PU", c:"Upper", set:3, rL:6, rH:12, r:"2 RIR", b:0, n:"Tension", isBW:true},
-            {w:2, d:"Friday", s:"Upper", e:"Single-Arm Row", g:"Row", h:"DB", c:"Upper", set:1, rL:8, rH:12, r:"2 RIR", b:35, n:"Rib", isBW:false},
-            {w:2, d:"Friday", s:"Upper", e:"Single-Arm Row", g:"Row", h:"DB", c:"Upper", set:2, rL:8, rH:12, r:"2 RIR", b:35, n:"Rib", isBW:false},
-            {w:2, d:"Friday", s:"Upper", e:"Single-Arm Row", g:"Row", h:"DB", c:"Upper", set:3, rL:8, rH:12, r:"2 RIR", b:35, n:"Rib", isBW:false},
-            {w:2, d:"Friday", s:"Upper", e:"Negative Pull-Up", g:"Neg", h:"Band", c:"Upper", set:1, rL:3, rH:5, r:"ctrl", b:0, n:"Lower", isBW:true},
-            {w:2, d:"Friday", s:"Upper", e:"Negative Pull-Up", g:"Neg", h:"Band", c:"Upper", set:2, rL:3, rH:5, r:"ctrl", b:0, n:"Lower", isBW:true},
-            {w:2, d:"Friday", s:"Upper", e:"Negative Pull-Up", g:"Neg", h:"Band", c:"Upper", set:3, rL:3, rH:5, r:"ctrl", b:0, n:"Lower", isBW:true},
-            {w:2, d:"Friday", s:"Upper", e:"L-Hold", g:"L", h:"Par", c:"Core", set:1, rL:10, rH:25, r:"tech", b:0, n:"Drive", isBW:false},
-            {w:2, d:"Friday", s:"Upper", e:"Straddle Leg Lift", g:"Straddle", h:"Straddle", c:"Core", set:1, rL:6, rH:12, r:"tech", b:0, n:"Tall", isBW:false},
-            {w:2, d:"Saturday", s:"Recovery", e:"Rest", g:"Stretch", h:"Stretch", c:"Recovery", set:1, rL:30, rH:60, r:"easy", b:0, n:"Optional", isBW:false},
-            {w:2, d:"Sunday", s:"Aerial", e:"Aerial Class", g:"Silks", h:"Silks", c:"Skill", set:1, rL:45, rH:75, r:"skill", b:0, n:"Alternate", isBW:false},
+            // W1 TUESDAY - Upper/Aerial
+            {w:1, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"Pull-Up", h:"Band Pull-Up", set:1, rL:4, rH:8, r:"3 RIR", b:0, isBW:true, n:"Full hang"},
+            {w:1, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"Pull-Up", h:"Band Pull-Up", set:2, rL:4, rH:8, r:"3 RIR", b:0, isBW:true, n:"Full hang"},
+            {w:1, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"Pull-Up", h:"Band Pull-Up", set:3, rL:4, rH:8, r:"3 RIR", b:0, isBW:true, n:"Full hang"},
+            {w:1, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"Pull-Up", h:"Band Pull-Up", set:4, rL:4, rH:8, r:"3 RIR", b:0, isBW:true, n:"Full hang"},
+            {w:1, d:"Tuesday", s:"Upper/Aerial", e:"Single-Arm Row", g:"1-Arm Row", h:"DB Row", set:1, rL:8, rH:12, r:"3 RIR", b:30, isBW:false, n:"Ribcage"},
+            {w:1, d:"Tuesday", s:"Upper/Aerial", e:"Single-Arm Row", g:"1-Arm Row", h:"DB Row", set:2, rL:8, rH:12, r:"3 RIR", b:30, isBW:false, n:"Ribcage"},
+            {w:1, d:"Tuesday", s:"Upper/Aerial", e:"Single-Arm Row", g:"1-Arm Row", h:"DB Row", set:3, rL:8, rH:12, r:"3 RIR", b:30, isBW:false, n:"Ribcage"},
+            {w:1, d:"Tuesday", s:"Upper/Aerial", e:"Lat Pulldown", g:"Lat PD", h:"Band PD", set:1, rL:8, rH:12, r:"3 RIR", b:0, isBW:false, n:"Elbows down"},
+            {w:1, d:"Tuesday", s:"Upper/Aerial", e:"Lat Pulldown", g:"Lat PD", h:"Band PD", set:2, rL:8, rH:12, r:"3 RIR", b:0, isBW:false, n:"Elbows down"},
+            {w:1, d:"Tuesday", s:"Upper/Aerial", e:"Lat Pulldown", g:"Lat PD", h:"Band PD", set:3, rL:8, rH:12, r:"3 RIR", b:0, isBW:false, n:"Elbows down"},
+            {w:1, d:"Tuesday", s:"Upper/Aerial", e:"Scapular Pull-Up", g:"Scapular PU", h:"Band Scap", set:1, rL:6, rH:10, r:"3 RIR", b:0, isBW:true, n:"Shoulder engage"},
+            {w:1, d:"Tuesday", s:"Upper/Aerial", e:"Scapular Pull-Up", g:"Scapular PU", h:"Band Scap", set:2, rL:6, rH:10, r:"3 RIR", b:0, isBW:true, n:"Shoulder engage"},
+            {w:1, d:"Tuesday", s:"Upper/Aerial", e:"Face Pull", g:"Face Pull", h:"Band Face", set:1, rL:12, rH:15, r:"3 RIR", b:0, isBW:false, n:"Rear delts"},
+            {w:1, d:"Tuesday", s:"Upper/Aerial", e:"Face Pull", g:"Face Pull", h:"Band Face", set:2, rL:12, rH:15, r:"3 RIR", b:0, isBW:false, n:"Rear delts"},
 
-            // Week 3-6 (minimal entries for space)
-            {w:3, d:"Monday", s:"Legs", e:"Hip Thrust", g:"Barbell", h:"DB", c:"Glutes", set:1, rL:6, rH:10, r:"1-2 RIR", b:100, n:"Pause", isBW:false},
-            {w:3, d:"Monday", s:"Legs", e:"Hip Thrust", g:"Barbell", h:"DB", c:"Glutes", set:2, rL:6, rH:10, r:"1-2 RIR", b:100, n:"Pause", isBW:false},
-            {w:3, d:"Monday", s:"Legs", e:"Hip Thrust", g:"Barbell", h:"DB", c:"Glutes", set:3, rL:6, rH:10, r:"1-2 RIR", b:100, n:"Pause", isBW:false},
-            {w:3, d:"Monday", s:"Legs", e:"Smith Squat", g:"Smith", h:"Goblet", c:"Glutes", set:1, rL:6, rH:10, r:"1-2 RIR", b:100, n:"Deep", isBW:false},
-            {w:3, d:"Monday", s:"Legs", e:"Smith Squat", g:"Smith", h:"Goblet", c:"Glutes", set:2, rL:6, rH:10, r:"1-2 RIR", b:100, n:"Deep", isBW:false},
-            {w:3, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", c:"Glutes", set:1, rL:10, rH:15, r:"1-2 RIR", b:150, n:"ROM", isBW:false},
-            {w:3, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", c:"Glutes", set:2, rL:10, rH:15, r:"1-2 RIR", b:150, n:"ROM", isBW:false},
-            {w:3, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", c:"Glutes", set:3, rL:10, rH:15, r:"1-2 RIR", b:150, n:"ROM", isBW:false},
-            {w:4, d:"Monday", s:"Legs", e:"Hip Thrust", g:"Barbell", h:"DB", c:"Glutes", set:1, rL:6, rH:10, r:"1 RIR", b:105, n:"Pause", isBW:false},
-            {w:4, d:"Monday", s:"Legs", e:"Hip Thrust", g:"Barbell", h:"DB", c:"Glutes", set:2, rL:6, rH:10, r:"1 RIR", b:105, n:"Pause", isBW:false},
-            {w:4, d:"Monday", s:"Legs", e:"Hip Thrust", g:"Barbell", h:"DB", c:"Glutes", set:3, rL:6, rH:10, r:"1 RIR", b:105, n:"Pause", isBW:false},
-            {w:4, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", c:"Glutes", set:1, rL:10, rH:15, r:"1 RIR", b:155, n:"ROM", isBW:false},
-            {w:4, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", c:"Glutes", set:2, rL:10, rH:15, r:"1 RIR", b:155, n:"ROM", isBW:false},
-            {w:4, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", c:"Glutes", set:3, rL:10, rH:15, r:"1 RIR", b:155, n:"ROM", isBW:false},
-            {w:5, d:"Monday", s:"Legs", e:"Hip Thrust", g:"Barbell", h:"DB", c:"Glutes", set:1, rL:6, rH:10, r:"0-1 RIR", b:110, n:"Pause", isBW:false},
-            {w:5, d:"Monday", s:"Legs", e:"Hip Thrust", g:"Barbell", h:"DB", c:"Glutes", set:2, rL:6, rH:10, r:"0-1 RIR", b:110, n:"Pause", isBW:false},
-            {w:5, d:"Monday", s:"Legs", e:"Hip Thrust", g:"Barbell", h:"DB", c:"Glutes", set:3, rL:6, rH:10, r:"0-1 RIR", b:110, n:"Pause", isBW:false},
-            {w:5, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", c:"Glutes", set:1, rL:10, rH:15, r:"0-1 RIR", b:160, n:"ROM", isBW:false},
-            {w:5, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", c:"Glutes", set:2, rL:10, rH:15, r:"0-1 RIR", b:160, n:"ROM", isBW:false},
-            {w:5, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", c:"Glutes", set:3, rL:10, rH:15, r:"0-1 RIR", b:160, n:"ROM", isBW:false},
-            {w:6, d:"Monday", s:"Legs", e:"Hip Thrust", g:"Barbell", h:"DB", c:"Glutes", set:1, rL:6, rH:10, r:"4+ RIR", b:45, n:"Pause", isBW:false},
-            {w:6, d:"Monday", s:"Legs", e:"Hip Thrust", g:"Barbell", h:"DB", c:"Glutes", set:2, rL:6, rH:10, r:"4+ RIR", b:45, n:"Pause", isBW:false},
-            {w:6, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", c:"Glutes", set:1, rL:10, rH:15, r:"4+ RIR", b:70, n:"ROM", isBW:false},
-            {w:6, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", c:"Glutes", set:2, rL:10, rH:15, r:"4+ RIR", b:70, n:"ROM", isBW:false},
+            // W1 WEDNESDAY - Cardio+Abs
+            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Zone 2 Cardio", g:"Treadmill", h:"Jog", set:1, rL:20, rH:35, r:"easy", b:0, isBW:false, n:"Steady"},
+            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Plank", g:"Front Plank", h:"Front Plank", set:1, rL:30, rH:60, r:"tech", b:0, isBW:false, n:"Glutes squeezed"},
+            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Plank", g:"Front Plank", h:"Front Plank", set:2, rL:30, rH:60, r:"tech", b:0, isBW:false, n:"Glutes squeezed"},
+            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Plank", g:"Front Plank", h:"Front Plank", set:3, rL:30, rH:60, r:"tech", b:0, isBW:false, n:"Glutes squeezed"},
+            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Hollow Hold", g:"Hollow Hold", h:"Hollow Hold", set:1, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Ribs down"},
+            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Hollow Hold", g:"Hollow Hold", h:"Hollow Hold", set:2, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Ribs down"},
+            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Hollow Hold", g:"Hollow Hold", h:"Hollow Hold", set:3, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Ribs down"},
+            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Hanging Knee Raise", g:"HKR", h:"Reverse Crunch", set:1, rL:8, rH:15, r:"3 RIR", b:0, isBW:false, n:"PPT"},
+            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Hanging Knee Raise", g:"HKR", h:"Reverse Crunch", set:2, rL:8, rH:15, r:"3 RIR", b:0, isBW:false, n:"PPT"},
+            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Hanging Knee Raise", g:"HKR", h:"Reverse Crunch", set:3, rL:8, rH:15, r:"3 RIR", b:0, isBW:false, n:"PPT"},
+            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Deadbug", g:"Deadbug", h:"Deadbug", set:1, rL:6, rH:10, r:"3 RIR", b:0, isBW:false, n:"Slow control"},
+            {w:1, d:"Wednesday", s:"Cardio+Abs", e:"Deadbug", g:"Deadbug", h:"Deadbug", set:2, rL:6, rH:10, r:"3 RIR", b:0, isBW:false, n:"Slow control"},
+
+            // W1 THURSDAY - Legs Volume
+            {w:1, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB KGB", set:1, rL:10, rH:15, r:"3 RIR", b:140, isBW:false, n:"ROM squeeze"},
+            {w:1, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB KGB", set:2, rL:10, rH:15, r:"3 RIR", b:140, isBW:false, n:"ROM squeeze"},
+            {w:1, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB KGB", set:3, rL:10, rH:15, r:"3 RIR", b:140, isBW:false, n:"ROM squeeze"},
+            {w:1, d:"Thursday", s:"Legs Vol", e:"Romanian Split Squat", g:"RSS", h:"Split Squat", set:1, rL:10, rH:15, r:"3 RIR", b:15, isBW:false, n:"Long stride"},
+            {w:1, d:"Thursday", s:"Legs Vol", e:"Romanian Split Squat", g:"RSS", h:"Split Squat", set:2, rL:10, rH:15, r:"3 RIR", b:15, isBW:false, n:"Long stride"},
+            {w:1, d:"Thursday", s:"Legs Vol", e:"Walking Lunge", g:"Walking Lunge", h:"Reverse Lunge", set:1, rL:12, rH:20, r:"3 RIR", b:15, isBW:false, n:"Long steps"},
+            {w:1, d:"Thursday", s:"Legs Vol", e:"Walking Lunge", g:"Walking Lunge", h:"Reverse Lunge", set:2, rL:12, rH:20, r:"3 RIR", b:15, isBW:false, n:"Long steps"},
+            {w:1, d:"Thursday", s:"Legs Vol", e:"Cable Kickback", g:"Cable KB", h:"Band KB", set:1, rL:15, rH:20, r:"3 RIR", b:0, isBW:false, n:"Control"},
+            {w:1, d:"Thursday", s:"Legs Vol", e:"Cable Kickback", g:"Cable KB", h:"Band KB", set:2, rL:15, rH:20, r:"3 RIR", b:0, isBW:false, n:"Control"},
+            {w:1, d:"Thursday", s:"Legs Vol", e:"Abduction", g:"Abduction", h:"Band Abduction", set:1, rL:20, rH:30, r:"3 RIR", b:0, isBW:false, n:"Glute med"},
+            {w:1, d:"Thursday", s:"Legs Vol", e:"Abduction", g:"Abduction", h:"Band Abduction", set:2, rL:20, rH:30, r:"3 RIR", b:0, isBW:false, n:"Glute med"},
+
+            // W1 FRIDAY - Upper+Compression
+            {w:1, d:"Friday", s:"Upper+Comp", e:"Push-Up", g:"Push-Up", h:"Push-Up", set:1, rL:6, rH:12, r:"3 RIR", b:0, isBW:true, n:"Tension"},
+            {w:1, d:"Friday", s:"Upper+Comp", e:"Push-Up", g:"Push-Up", h:"Push-Up", set:2, rL:6, rH:12, r:"3 RIR", b:0, isBW:true, n:"Tension"},
+            {w:1, d:"Friday", s:"Upper+Comp", e:"Push-Up", g:"Push-Up", h:"Push-Up", set:3, rL:6, rH:12, r:"3 RIR", b:0, isBW:true, n:"Tension"},
+            {w:1, d:"Friday", s:"Upper+Comp", e:"Single-Arm Row", g:"1-Arm Row", h:"DB Row", set:1, rL:8, rH:12, r:"3 RIR", b:30, isBW:false, n:"Ribcage"},
+            {w:1, d:"Friday", s:"Upper+Comp", e:"Single-Arm Row", g:"1-Arm Row", h:"DB Row", set:2, rL:8, rH:12, r:"3 RIR", b:30, isBW:false, n:"Ribcage"},
+            {w:1, d:"Friday", s:"Upper+Comp", e:"Single-Arm Row", g:"1-Arm Row", h:"DB Row", set:3, rL:8, rH:12, r:"3 RIR", b:30, isBW:false, n:"Ribcage"},
+            {w:1, d:"Friday", s:"Upper+Comp", e:"Negative Pull-Up", g:"Eccentric PU", h:"Band Neg", set:1, rL:3, rH:5, r:"ctrl", b:0, isBW:true, n:"3-5s lower"},
+            {w:1, d:"Friday", s:"Upper+Comp", e:"Negative Pull-Up", g:"Eccentric PU", h:"Band Neg", set:2, rL:3, rH:5, r:"ctrl", b:0, isBW:true, n:"3-5s lower"},
+            {w:1, d:"Friday", s:"Upper+Comp", e:"Negative Pull-Up", g:"Eccentric PU", h:"Band Neg", set:3, rL:3, rH:5, r:"ctrl", b:0, isBW:true, n:"3-5s lower"},
+            {w:1, d:"Friday", s:"Upper+Comp", e:"L-Hold", g:"L-Hold", h:"Parallette", set:1, rL:10, rH:25, r:"tech", b:0, isBW:false, n:"Shoulder engage"},
+            {w:1, d:"Friday", s:"Upper+Comp", e:"Straddle Leg Lift", g:"Straddle", h:"Straddle", set:1, rL:6, rH:12, r:"tech", b:0, isBW:false, n:"Tall chest"},
+            {w:1, d:"Friday", s:"Upper+Comp", e:"Compression Lift", g:"Compression", h:"Band Compress", set:1, rL:6, rH:12, r:"3 RIR", b:0, isBW:false, n:"Technical"},
+            {w:1, d:"Friday", s:"Upper+Comp", e:"Compression Lift", g:"Compression", h:"Band Compress", set:2, rL:6, rH:12, r:"3 RIR", b:0, isBW:false, n:"Technical"},
+            {w:1, d:"Friday", s:"Upper+Comp", e:"Compression Lift", g:"Compression", h:"Band Compress", set:3, rL:6, rH:12, r:"3 RIR", b:0, isBW:false, n:"Technical"},
+            {w:1, d:"Friday", s:"Upper+Comp", e:"Table Top", g:"Table Top", h:"Table Top", set:1, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Hold"},
+            {w:1, d:"Friday", s:"Upper+Comp", e:"Table Top", g:"Table Top", h:"Table Top", set:2, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Hold"},
+
+            // W1 SATURDAY - Rest
+            {w:1, d:"Saturday", s:"Recovery", e:"Rest/Stretch", g:"Stretching", h:"Stretching", set:1, rL:30, rH:60, r:"easy", b:0, isBW:false, n:"Optional"},
+
+            // W1 SUNDAY - Aerial
+            {w:1, d:"Sunday", s:"Aerial", e:"Aerial Class", g:"Silks/Lyra", h:"Silks/Lyra", set:1, rL:45, rH:75, r:"skill", b:0, isBW:false, n:"Alternate styles"},
+
+            // ==================== WEEK 2 ====================
+            // W2 MONDAY
+            {w:2, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell", h:"DB", set:1, rL:6, rH:10, r:"2 RIR", b:95, isBW:false, n:"Pause 1-2s"},
+            {w:2, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell", h:"DB", set:2, rL:6, rH:10, r:"2 RIR", b:95, isBW:false, n:"Pause 1-2s"},
+            {w:2, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell", h:"DB", set:3, rL:6, rH:10, r:"2 RIR", b:95, isBW:false, n:"Pause 1-2s"},
+            {w:2, d:"Monday", s:"Legs/Glutes", e:"Smith Squat", g:"Smith", h:"Goblet", set:1, rL:6, rH:10, r:"2 RIR", b:95, isBW:false, n:"Deep ROM"},
+            {w:2, d:"Monday", s:"Legs/Glutes", e:"Smith Squat", g:"Smith", h:"Goblet", set:2, rL:6, rH:10, r:"2 RIR", b:95, isBW:false, n:"Deep ROM"},
+            {w:2, d:"Monday", s:"Legs/Glutes", e:"RDL", g:"Romanian", h:"DB", set:1, rL:8, rH:10, r:"2 RIR", b:5, isBW:false, n:"Hips back"},
+            {w:2, d:"Monday", s:"Legs/Glutes", e:"RDL", g:"Romanian", h:"DB", set:2, rL:8, rH:10, r:"2 RIR", b:5, isBW:false, n:"Hips back"},
+            {w:2, d:"Monday", s:"Legs/Glutes", e:"Single Leg Press", g:"SLP", h:"Split", set:1, rL:10, rH:12, r:"2 RIR", b:95, isBW:false, n:"Full ROM"},
+            {w:2, d:"Monday", s:"Legs/Glutes", e:"Single Leg Press", g:"SLP", h:"Split", set:2, rL:10, rH:12, r:"2 RIR", b:95, isBW:false, n:"Full ROM"},
+
+            // W2 TUESDAY
+            {w:2, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"PU", h:"Band", set:1, rL:4, rH:8, r:"2 RIR", b:0, isBW:true, n:"Full hang"},
+            {w:2, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"PU", h:"Band", set:2, rL:4, rH:8, r:"2 RIR", b:0, isBW:true, n:"Full hang"},
+            {w:2, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"PU", h:"Band", set:3, rL:4, rH:8, r:"2 RIR", b:0, isBW:true, n:"Full hang"},
+            {w:2, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"PU", h:"Band", set:4, rL:4, rH:8, r:"2 RIR", b:0, isBW:true, n:"Full hang"},
+            {w:2, d:"Tuesday", s:"Upper/Aerial", e:"Single-Arm Row", g:"Row", h:"DB", set:1, rL:8, rH:12, r:"2 RIR", b:35, isBW:false, n:"Ribcage"},
+            {w:2, d:"Tuesday", s:"Upper/Aerial", e:"Single-Arm Row", g:"Row", h:"DB", set:2, rL:8, rH:12, r:"2 RIR", b:35, isBW:false, n:"Ribcage"},
+            {w:2, d:"Tuesday", s:"Upper/Aerial", e:"Single-Arm Row", g:"Row", h:"DB", set:3, rL:8, rH:12, r:"2 RIR", b:35, isBW:false, n:"Ribcage"},
+            {w:2, d:"Tuesday", s:"Upper/Aerial", e:"Lat Pulldown", g:"Lat", h:"Band", set:1, rL:8, rH:12, r:"2 RIR", b:5, isBW:false, n:"Elbows down"},
+            {w:2, d:"Tuesday", s:"Upper/Aerial", e:"Lat Pulldown", g:"Lat", h:"Band", set:2, rL:8, rH:12, r:"2 RIR", b:5, isBW:false, n:"Elbows down"},
+            {w:2, d:"Tuesday", s:"Upper/Aerial", e:"Lat Pulldown", g:"Lat", h:"Band", set:3, rL:8, rH:12, r:"2 RIR", b:5, isBW:false, n:"Elbows down"},
+            {w:2, d:"Tuesday", s:"Upper/Aerial", e:"Scapular Pull-Up", g:"Scapular", h:"Band", set:1, rL:6, rH:10, r:"2 RIR", b:0, isBW:true, n:"Shoulder engage"},
+            {w:2, d:"Tuesday", s:"Upper/Aerial", e:"Scapular Pull-Up", g:"Scapular", h:"Band", set:2, rL:6, rH:10, r:"2 RIR", b:0, isBW:true, n:"Shoulder engage"},
+            {w:2, d:"Tuesday", s:"Upper/Aerial", e:"Face Pull", g:"Face", h:"Band", set:1, rL:12, rH:15, r:"2 RIR", b:0, isBW:false, n:"Rear delts"},
+            {w:2, d:"Tuesday", s:"Upper/Aerial", e:"Face Pull", g:"Face", h:"Band", set:2, rL:12, rH:15, r:"2 RIR", b:0, isBW:false, n:"Rear delts"},
+
+            // W2 WEDNESDAY
+            {w:2, d:"Wednesday", s:"Cardio+Abs", e:"Zone 2 Cardio", g:"Tread", h:"Jog", set:1, rL:20, rH:35, r:"easy", b:0, isBW:false, n:"Steady"},
+            {w:2, d:"Wednesday", s:"Cardio+Abs", e:"Plank", g:"Plank", h:"Plank", set:1, rL:30, rH:60, r:"tech", b:0, isBW:false, n:"Glutes"},
+            {w:2, d:"Wednesday", s:"Cardio+Abs", e:"Plank", g:"Plank", h:"Plank", set:2, rL:30, rH:60, r:"tech", b:0, isBW:false, n:"Glutes"},
+            {w:2, d:"Wednesday", s:"Cardio+Abs", e:"Plank", g:"Plank", h:"Plank", set:3, rL:30, rH:60, r:"tech", b:0, isBW:false, n:"Glutes"},
+            {w:2, d:"Wednesday", s:"Cardio+Abs", e:"Hollow Hold", g:"Hollow", h:"Hollow", set:1, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Ribs down"},
+            {w:2, d:"Wednesday", s:"Cardio+Abs", e:"Hollow Hold", g:"Hollow", h:"Hollow", set:2, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Ribs down"},
+            {w:2, d:"Wednesday", s:"Cardio+Abs", e:"Hollow Hold", g:"Hollow", h:"Hollow", set:3, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Ribs down"},
+            {w:2, d:"Wednesday", s:"Cardio+Abs", e:"Hanging Knee Raise", g:"HKR", h:"Crunch", set:1, rL:8, rH:15, r:"2 RIR", b:0, isBW:false, n:"PPT"},
+            {w:2, d:"Wednesday", s:"Cardio+Abs", e:"Hanging Knee Raise", g:"HKR", h:"Crunch", set:2, rL:8, rH:15, r:"2 RIR", b:0, isBW:false, n:"PPT"},
+            {w:2, d:"Wednesday", s:"Cardio+Abs", e:"Hanging Knee Raise", g:"HKR", h:"Crunch", set:3, rL:8, rH:15, r:"2 RIR", b:0, isBW:false, n:"PPT"},
+            {w:2, d:"Wednesday", s:"Cardio+Abs", e:"Deadbug", g:"Deadbug", h:"Deadbug", set:1, rL:6, rH:10, r:"2 RIR", b:0, isBW:false, n:"Slow control"},
+            {w:2, d:"Wednesday", s:"Cardio+Abs", e:"Deadbug", g:"Deadbug", h:"Deadbug", set:2, rL:6, rH:10, r:"2 RIR", b:0, isBW:false, n:"Slow control"},
+
+            // W2 THURSDAY
+            {w:2, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", set:1, rL:10, rH:15, r:"2 RIR", b:145, isBW:false, n:"ROM squeeze"},
+            {w:2, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", set:2, rL:10, rH:15, r:"2 RIR", b:145, isBW:false, n:"ROM squeeze"},
+            {w:2, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", set:3, rL:10, rH:15, r:"2 RIR", b:145, isBW:false, n:"ROM squeeze"},
+            {w:2, d:"Thursday", s:"Legs Vol", e:"Romanian Split Squat", g:"RSS", h:"Split", set:1, rL:10, rH:15, r:"2 RIR", b:20, isBW:false, n:"Long stride"},
+            {w:2, d:"Thursday", s:"Legs Vol", e:"Romanian Split Squat", g:"RSS", h:"Split", set:2, rL:10, rH:15, r:"2 RIR", b:20, isBW:false, n:"Long stride"},
+            {w:2, d:"Thursday", s:"Legs Vol", e:"Walking Lunge", g:"Lunge", h:"Reverse", set:1, rL:12, rH:20, r:"2 RIR", b:20, isBW:false, n:"Long steps"},
+            {w:2, d:"Thursday", s:"Legs Vol", e:"Walking Lunge", g:"Lunge", h:"Reverse", set:2, rL:12, rH:20, r:"2 RIR", b:20, isBW:false, n:"Long steps"},
+            {w:2, d:"Thursday", s:"Legs Vol", e:"Cable Kickback", g:"Cable", h:"Band", set:1, rL:15, rH:20, r:"2 RIR", b:5, isBW:false, n:"Control"},
+            {w:2, d:"Thursday", s:"Legs Vol", e:"Cable Kickback", g:"Cable", h:"Band", set:2, rL:15, rH:20, r:"2 RIR", b:5, isBW:false, n:"Control"},
+            {w:2, d:"Thursday", s:"Legs Vol", e:"Abduction", g:"Abduction", h:"Band", set:1, rL:20, rH:30, r:"2 RIR", b:0, isBW:false, n:"Glute med"},
+            {w:2, d:"Thursday", s:"Legs Vol", e:"Abduction", g:"Abduction", h:"Band", set:2, rL:20, rH:30, r:"2 RIR", b:0, isBW:false, n:"Glute med"},
+
+            // W2 FRIDAY
+            {w:2, d:"Friday", s:"Upper+Comp", e:"Push-Up", g:"PU", h:"PU", set:1, rL:6, rH:12, r:"2 RIR", b:0, isBW:true, n:"Tension"},
+            {w:2, d:"Friday", s:"Upper+Comp", e:"Push-Up", g:"PU", h:"PU", set:2, rL:6, rH:12, r:"2 RIR", b:0, isBW:true, n:"Tension"},
+            {w:2, d:"Friday", s:"Upper+Comp", e:"Push-Up", g:"PU", h:"PU", set:3, rL:6, rH:12, r:"2 RIR", b:0, isBW:true, n:"Tension"},
+            {w:2, d:"Friday", s:"Upper+Comp", e:"Single-Arm Row", g:"Row", h:"DB", set:1, rL:8, rH:12, r:"2 RIR", b:35, isBW:false, n:"Ribcage"},
+            {w:2, d:"Friday", s:"Upper+Comp", e:"Single-Arm Row", g:"Row", h:"DB", set:2, rL:8, rH:12, r:"2 RIR", b:35, isBW:false, n:"Ribcage"},
+            {w:2, d:"Friday", s:"Upper+Comp", e:"Single-Arm Row", g:"Row", h:"DB", set:3, rL:8, rH:12, r:"2 RIR", b:35, isBW:false, n:"Ribcage"},
+            {w:2, d:"Friday", s:"Upper+Comp", e:"Negative Pull-Up", g:"Neg", h:"Band", set:1, rL:3, rH:5, r:"ctrl", b:0, isBW:true, n:"Lower"},
+            {w:2, d:"Friday", s:"Upper+Comp", e:"Negative Pull-Up", g:"Neg", h:"Band", set:2, rL:3, rH:5, r:"ctrl", b:0, isBW:true, n:"Lower"},
+            {w:2, d:"Friday", s:"Upper+Comp", e:"Negative Pull-Up", g:"Neg", h:"Band", set:3, rL:3, rH:5, r:"ctrl", b:0, isBW:true, n:"Lower"},
+            {w:2, d:"Friday", s:"Upper+Comp", e:"L-Hold", g:"L", h:"Par", set:1, rL:10, rH:25, r:"tech", b:0, isBW:false, n:"Shoulder"},
+            {w:2, d:"Friday", s:"Upper+Comp", e:"Straddle Leg Lift", g:"Straddle", h:"Straddle", set:1, rL:6, rH:12, r:"tech", b:0, isBW:false, n:"Tall chest"},
+            {w:2, d:"Friday", s:"Upper+Comp", e:"Compression Lift", g:"Comp", h:"Band", set:1, rL:6, rH:12, r:"2 RIR", b:0, isBW:false, n:"Technical"},
+            {w:2, d:"Friday", s:"Upper+Comp", e:"Compression Lift", g:"Comp", h:"Band", set:2, rL:6, rH:12, r:"2 RIR", b:0, isBW:false, n:"Technical"},
+            {w:2, d:"Friday", s:"Upper+Comp", e:"Compression Lift", g:"Comp", h:"Band", set:3, rL:6, rH:12, r:"2 RIR", b:0, isBW:false, n:"Technical"},
+            {w:2, d:"Friday", s:"Upper+Comp", e:"Table Top", g:"Table", h:"Table", set:1, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Hold"},
+            {w:2, d:"Friday", s:"Upper+Comp", e:"Table Top", g:"Table", h:"Table", set:2, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Hold"},
+
+            // W2 WEEKEND
+            {w:2, d:"Saturday", s:"Recovery", e:"Rest/Stretch", g:"Stretch", h:"Stretch", set:1, rL:30, rH:60, r:"easy", b:0, isBW:false, n:"Optional"},
+            {w:2, d:"Sunday", s:"Aerial", e:"Aerial Class", g:"Silks", h:"Silks", set:1, rL:45, rH:75, r:"skill", b:0, isBW:false, n:"Alternate"},
+
+            // ==================== WEEK 3 ====================
+            // W3 MONDAY
+            {w:3, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell", h:"DB", set:1, rL:6, rH:10, r:"1-2 RIR", b:100, isBW:false, n:"Pause"},
+            {w:3, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell", h:"DB", set:2, rL:6, rH:10, r:"1-2 RIR", b:100, isBW:false, n:"Pause"},
+            {w:3, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell", h:"DB", set:3, rL:6, rH:10, r:"1-2 RIR", b:100, isBW:false, n:"Pause"},
+            {w:3, d:"Monday", s:"Legs/Glutes", e:"Smith Squat", g:"Smith", h:"Goblet", set:1, rL:6, rH:10, r:"1-2 RIR", b:100, isBW:false, n:"Deep"},
+            {w:3, d:"Monday", s:"Legs/Glutes", e:"Smith Squat", g:"Smith", h:"Goblet", set:2, rL:6, rH:10, r:"1-2 RIR", b:100, isBW:false, n:"Deep"},
+            {w:3, d:"Monday", s:"Legs/Glutes", e:"RDL", g:"Romanian", h:"DB", set:1, rL:8, rH:10, r:"1-2 RIR", b:10, isBW:false, n:"Hips"},
+            {w:3, d:"Monday", s:"Legs/Glutes", e:"RDL", g:"Romanian", h:"DB", set:2, rL:8, rH:10, r:"1-2 RIR", b:10, isBW:false, n:"Hips"},
+            {w:3, d:"Monday", s:"Legs/Glutes", e:"Single Leg Press", g:"SLP", h:"Split", set:1, rL:10, rH:12, r:"1-2 RIR", b:100, isBW:false, n:"ROM"},
+            {w:3, d:"Monday", s:"Legs/Glutes", e:"Single Leg Press", g:"SLP", h:"Split", set:2, rL:10, rH:12, r:"1-2 RIR", b:100, isBW:false, n:"ROM"},
+
+            // W3 TUESDAY
+            {w:3, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"PU", h:"Band", set:1, rL:4, rH:8, r:"1-2 RIR", b:0, isBW:true, n:"Hang"},
+            {w:3, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"PU", h:"Band", set:2, rL:4, rH:8, r:"1-2 RIR", b:0, isBW:true, n:"Hang"},
+            {w:3, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"PU", h:"Band", set:3, rL:4, rH:8, r:"1-2 RIR", b:0, isBW:true, n:"Hang"},
+            {w:3, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"PU", h:"Band", set:4, rL:4, rH:8, r:"1-2 RIR", b:0, isBW:true, n:"Hang"},
+            {w:3, d:"Tuesday", s:"Upper/Aerial", e:"Single-Arm Row", g:"Row", h:"DB", set:1, rL:8, rH:12, r:"1-2 RIR", b:40, isBW:false, n:"Rib"},
+            {w:3, d:"Tuesday", s:"Upper/Aerial", e:"Single-Arm Row", g:"Row", h:"DB", set:2, rL:8, rH:12, r:"1-2 RIR", b:40, isBW:false, n:"Rib"},
+            {w:3, d:"Tuesday", s:"Upper/Aerial", e:"Single-Arm Row", g:"Row", h:"DB", set:3, rL:8, rH:12, r:"1-2 RIR", b:40, isBW:false, n:"Rib"},
+            {w:3, d:"Tuesday", s:"Upper/Aerial", e:"Lat Pulldown", g:"Lat", h:"Band", set:1, rL:8, rH:12, r:"1-2 RIR", b:10, isBW:false, n:"Elbow"},
+            {w:3, d:"Tuesday", s:"Upper/Aerial", e:"Lat Pulldown", g:"Lat", h:"Band", set:2, rL:8, rH:12, r:"1-2 RIR", b:10, isBW:false, n:"Elbow"},
+            {w:3, d:"Tuesday", s:"Upper/Aerial", e:"Lat Pulldown", g:"Lat", h:"Band", set:3, rL:8, rH:12, r:"1-2 RIR", b:10, isBW:false, n:"Elbow"},
+            {w:3, d:"Tuesday", s:"Upper/Aerial", e:"Scapular Pull-Up", g:"Scapular", h:"Band", set:1, rL:6, rH:10, r:"1-2 RIR", b:0, isBW:true, n:"Shoulder"},
+            {w:3, d:"Tuesday", s:"Upper/Aerial", e:"Scapular Pull-Up", g:"Scapular", h:"Band", set:2, rL:6, rH:10, r:"1-2 RIR", b:0, isBW:true, n:"Shoulder"},
+            {w:3, d:"Tuesday", s:"Upper/Aerial", e:"Face Pull", g:"Face", h:"Band", set:1, rL:12, rH:15, r:"1-2 RIR", b:0, isBW:false, n:"Rear"},
+            {w:3, d:"Tuesday", s:"Upper/Aerial", e:"Face Pull", g:"Face", h:"Band", set:2, rL:12, rH:15, r:"1-2 RIR", b:0, isBW:false, n:"Rear"},
+
+            // W3 WEDNESDAY
+            {w:3, d:"Wednesday", s:"Cardio+Abs", e:"Zone 2 Cardio", g:"Tread", h:"Jog", set:1, rL:20, rH:35, r:"easy", b:0, isBW:false, n:"Steady"},
+            {w:3, d:"Wednesday", s:"Cardio+Abs", e:"Plank", g:"Plank", h:"Plank", set:1, rL:30, rH:60, r:"tech", b:0, isBW:false, n:"Glute"},
+            {w:3, d:"Wednesday", s:"Cardio+Abs", e:"Plank", g:"Plank", h:"Plank", set:2, rL:30, rH:60, r:"tech", b:0, isBW:false, n:"Glute"},
+            {w:3, d:"Wednesday", s:"Cardio+Abs", e:"Plank", g:"Plank", h:"Plank", set:3, rL:30, rH:60, r:"tech", b:0, isBW:false, n:"Glute"},
+            {w:3, d:"Wednesday", s:"Cardio+Abs", e:"Hollow Hold", g:"Hollow", h:"Hollow", set:1, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Ribs"},
+            {w:3, d:"Wednesday", s:"Cardio+Abs", e:"Hollow Hold", g:"Hollow", h:"Hollow", set:2, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Ribs"},
+            {w:3, d:"Wednesday", s:"Cardio+Abs", e:"Hollow Hold", g:"Hollow", h:"Hollow", set:3, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Ribs"},
+            {w:3, d:"Wednesday", s:"Cardio+Abs", e:"Hanging Knee Raise", g:"HKR", h:"Crunch", set:1, rL:8, rH:15, r:"1-2 RIR", b:0, isBW:false, n:"PPT"},
+            {w:3, d:"Wednesday", s:"Cardio+Abs", e:"Hanging Knee Raise", g:"HKR", h:"Crunch", set:2, rL:8, rH:15, r:"1-2 RIR", b:0, isBW:false, n:"PPT"},
+            {w:3, d:"Wednesday", s:"Cardio+Abs", e:"Hanging Knee Raise", g:"HKR", h:"Crunch", set:3, rL:8, rH:15, r:"1-2 RIR", b:0, isBW:false, n:"PPT"},
+            {w:3, d:"Wednesday", s:"Cardio+Abs", e:"Deadbug", g:"Deadbug", h:"Deadbug", set:1, rL:6, rH:10, r:"1-2 RIR", b:0, isBW:false, n:"Control"},
+            {w:3, d:"Wednesday", s:"Cardio+Abs", e:"Deadbug", g:"Deadbug", h:"Deadbug", set:2, rL:6, rH:10, r:"1-2 RIR", b:0, isBW:false, n:"Control"},
+
+            // W3 THURSDAY
+            {w:3, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", set:1, rL:10, rH:15, r:"1-2 RIR", b:150, isBW:false, n:"ROM"},
+            {w:3, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", set:2, rL:10, rH:15, r:"1-2 RIR", b:150, isBW:false, n:"ROM"},
+            {w:3, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", set:3, rL:10, rH:15, r:"1-2 RIR", b:150, isBW:false, n:"ROM"},
+            {w:3, d:"Thursday", s:"Legs Vol", e:"Romanian Split Squat", g:"RSS", h:"Split", set:1, rL:10, rH:15, r:"1-2 RIR", b:25, isBW:false, n:"Stride"},
+            {w:3, d:"Thursday", s:"Legs Vol", e:"Romanian Split Squat", g:"RSS", h:"Split", set:2, rL:10, rH:15, r:"1-2 RIR", b:25, isBW:false, n:"Stride"},
+            {w:3, d:"Thursday", s:"Legs Vol", e:"Walking Lunge", g:"Lunge", h:"Reverse", set:1, rL:12, rH:20, r:"1-2 RIR", b:25, isBW:false, n:"Steps"},
+            {w:3, d:"Thursday", s:"Legs Vol", e:"Walking Lunge", g:"Lunge", h:"Reverse", set:2, rL:12, rH:20, r:"1-2 RIR", b:25, isBW:false, n:"Steps"},
+            {w:3, d:"Thursday", s:"Legs Vol", e:"Cable Kickback", g:"Cable", h:"Band", set:1, rL:15, rH:20, r:"1-2 RIR", b:10, isBW:false, n:"Control"},
+            {w:3, d:"Thursday", s:"Legs Vol", e:"Cable Kickback", g:"Cable", h:"Band", set:2, rL:15, rH:20, r:"1-2 RIR", b:10, isBW:false, n:"Control"},
+            {w:3, d:"Thursday", s:"Legs Vol", e:"Abduction", g:"Abduction", h:"Band", set:1, rL:20, rH:30, r:"1-2 RIR", b:0, isBW:false, n:"Med"},
+            {w:3, d:"Thursday", s:"Legs Vol", e:"Abduction", g:"Abduction", h:"Band", set:2, rL:20, rH:30, r:"1-2 RIR", b:0, isBW:false, n:"Med"},
+
+            // W3 FRIDAY
+            {w:3, d:"Friday", s:"Upper+Comp", e:"Push-Up", g:"PU", h:"PU", set:1, rL:6, rH:12, r:"1-2 RIR", b:0, isBW:true, n:"Tension"},
+            {w:3, d:"Friday", s:"Upper+Comp", e:"Push-Up", g:"PU", h:"PU", set:2, rL:6, rH:12, r:"1-2 RIR", b:0, isBW:true, n:"Tension"},
+            {w:3, d:"Friday", s:"Upper+Comp", e:"Push-Up", g:"PU", h:"PU", set:3, rL:6, rH:12, r:"1-2 RIR", b:0, isBW:true, n:"Tension"},
+            {w:3, d:"Friday", s:"Upper+Comp", e:"Single-Arm Row", g:"Row", h:"DB", set:1, rL:8, rH:12, r:"1-2 RIR", b:40, isBW:false, n:"Rib"},
+            {w:3, d:"Friday", s:"Upper+Comp", e:"Single-Arm Row", g:"Row", h:"DB", set:2, rL:8, rH:12, r:"1-2 RIR", b:40, isBW:false, n:"Rib"},
+            {w:3, d:"Friday", s:"Upper+Comp", e:"Single-Arm Row", g:"Row", h:"DB", set:3, rL:8, rH:12, r:"1-2 RIR", b:40, isBW:false, n:"Rib"},
+            {w:3, d:"Friday", s:"Upper+Comp", e:"Negative Pull-Up", g:"Neg", h:"Band", set:1, rL:3, rH:5, r:"ctrl", b:0, isBW:true, n:"Lower"},
+            {w:3, d:"Friday", s:"Upper+Comp", e:"Negative Pull-Up", g:"Neg", h:"Band", set:2, rL:3, rH:5, r:"ctrl", b:0, isBW:true, n:"Lower"},
+            {w:3, d:"Friday", s:"Upper+Comp", e:"Negative Pull-Up", g:"Neg", h:"Band", set:3, rL:3, rH:5, r:"ctrl", b:0, isBW:true, n:"Lower"},
+            {w:3, d:"Friday", s:"Upper+Comp", e:"L-Hold", g:"L", h:"Par", set:1, rL:10, rH:25, r:"tech", b:0, isBW:false, n:"Drive"},
+            {w:3, d:"Friday", s:"Upper+Comp", e:"Straddle Leg Lift", g:"Straddle", h:"Straddle", set:1, rL:6, rH:12, r:"tech", b:0, isBW:false, n:"Tall"},
+            {w:3, d:"Friday", s:"Upper+Comp", e:"Compression Lift", g:"Comp", h:"Band", set:1, rL:6, rH:12, r:"1-2 RIR", b:0, isBW:false, n:"Tech"},
+            {w:3, d:"Friday", s:"Upper+Comp", e:"Compression Lift", g:"Comp", h:"Band", set:2, rL:6, rH:12, r:"1-2 RIR", b:0, isBW:false, n:"Tech"},
+            {w:3, d:"Friday", s:"Upper+Comp", e:"Compression Lift", g:"Comp", h:"Band", set:3, rL:6, rH:12, r:"1-2 RIR", b:0, isBW:false, n:"Tech"},
+            {w:3, d:"Friday", s:"Upper+Comp", e:"Table Top", g:"Table", h:"Table", set:1, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Hold"},
+            {w:3, d:"Friday", s:"Upper+Comp", e:"Table Top", g:"Table", h:"Table", set:2, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Hold"},
+
+            // W3 WEEKEND
+            {w:3, d:"Saturday", s:"Recovery", e:"Rest/Stretch", g:"Stretch", h:"Stretch", set:1, rL:30, rH:60, r:"easy", b:0, isBW:false, n:"Optional"},
+            {w:3, d:"Sunday", s:"Aerial", e:"Aerial Class", g:"Silks", h:"Silks", set:1, rL:45, rH:75, r:"skill", b:0, isBW:false, n:"Alternate"},
+
+            // ==================== WEEK 4 ====================
+            // W4 MONDAY
+            {w:4, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell", h:"DB", set:1, rL:6, rH:10, r:"1 RIR", b:105, isBW:false, n:"Pause"},
+            {w:4, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell", h:"DB", set:2, rL:6, rH:10, r:"1 RIR", b:105, isBW:false, n:"Pause"},
+            {w:4, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell", h:"DB", set:3, rL:6, rH:10, r:"1 RIR", b:105, isBW:false, n:"Pause"},
+            {w:4, d:"Monday", s:"Legs/Glutes", e:"Smith Squat", g:"Smith", h:"Goblet", set:1, rL:6, rH:10, r:"1 RIR", b:105, isBW:false, n:"Deep"},
+            {w:4, d:"Monday", s:"Legs/Glutes", e:"Smith Squat", g:"Smith", h:"Goblet", set:2, rL:6, rH:10, r:"1 RIR", b:105, isBW:false, n:"Deep"},
+            {w:4, d:"Monday", s:"Legs/Glutes", e:"RDL", g:"Romanian", h:"DB", set:1, rL:8, rH:10, r:"1 RIR", b:15, isBW:false, n:"Hips"},
+            {w:4, d:"Monday", s:"Legs/Glutes", e:"RDL", g:"Romanian", h:"DB", set:2, rL:8, rH:10, r:"1 RIR", b:15, isBW:false, n:"Hips"},
+            {w:4, d:"Monday", s:"Legs/Glutes", e:"Single Leg Press", g:"SLP", h:"Split", set:1, rL:10, rH:12, r:"1 RIR", b:105, isBW:false, n:"ROM"},
+            {w:4, d:"Monday", s:"Legs/Glutes", e:"Single Leg Press", g:"SLP", h:"Split", set:2, rL:10, rH:12, r:"1 RIR", b:105, isBW:false, n:"ROM"},
+
+            // W4 TUESDAY
+            {w:4, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"PU", h:"Band", set:1, rL:4, rH:8, r:"1 RIR", b:0, isBW:true, n:"Hang"},
+            {w:4, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"PU", h:"Band", set:2, rL:4, rH:8, r:"1 RIR", b:0, isBW:true, n:"Hang"},
+            {w:4, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"PU", h:"Band", set:3, rL:4, rH:8, r:"1 RIR", b:0, isBW:true, n:"Hang"},
+            {w:4, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"PU", h:"Band", set:4, rL:4, rH:8, r:"1 RIR", b:0, isBW:true, n:"Hang"},
+            {w:4, d:"Tuesday", s:"Upper/Aerial", e:"Single-Arm Row", g:"Row", h:"DB", set:1, rL:8, rH:12, r:"1 RIR", b:45, isBW:false, n:"Rib"},
+            {w:4, d:"Tuesday", s:"Upper/Aerial", e:"Single-Arm Row", g:"Row", h:"DB", set:2, rL:8, rH:12, r:"1 RIR", b:45, isBW:false, n:"Rib"},
+            {w:4, d:"Tuesday", s:"Upper/Aerial", e:"Single-Arm Row", g:"Row", h:"DB", set:3, rL:8, rH:12, r:"1 RIR", b:45, isBW:false, n:"Rib"},
+            {w:4, d:"Tuesday", s:"Upper/Aerial", e:"Lat Pulldown", g:"Lat", h:"Band", set:1, rL:8, rH:12, r:"1 RIR", b:15, isBW:false, n:"Elbow"},
+            {w:4, d:"Tuesday", s:"Upper/Aerial", e:"Lat Pulldown", g:"Lat", h:"Band", set:2, rL:8, rH:12, r:"1 RIR", b:15, isBW:false, n:"Elbow"},
+            {w:4, d:"Tuesday", s:"Upper/Aerial", e:"Lat Pulldown", g:"Lat", h:"Band", set:3, rL:8, rH:12, r:"1 RIR", b:15, isBW:false, n:"Elbow"},
+            {w:4, d:"Tuesday", s:"Upper/Aerial", e:"Scapular Pull-Up", g:"Scapular", h:"Band", set:1, rL:6, rH:10, r:"1 RIR", b:0, isBW:true, n:"Shoulder"},
+            {w:4, d:"Tuesday", s:"Upper/Aerial", e:"Scapular Pull-Up", g:"Scapular", h:"Band", set:2, rL:6, rH:10, r:"1 RIR", b:0, isBW:true, n:"Shoulder"},
+            {w:4, d:"Tuesday", s:"Upper/Aerial", e:"Face Pull", g:"Face", h:"Band", set:1, rL:12, rH:15, r:"1 RIR", b:0, isBW:false, n:"Rear"},
+            {w:4, d:"Tuesday", s:"Upper/Aerial", e:"Face Pull", g:"Face", h:"Band", set:2, rL:12, rH:15, r:"1 RIR", b:0, isBW:false, n:"Rear"},
+
+            // W4 WEDNESDAY
+            {w:4, d:"Wednesday", s:"Cardio+Abs", e:"Zone 2 Cardio", g:"Tread", h:"Jog", set:1, rL:20, rH:35, r:"easy", b:0, isBW:false, n:"Steady"},
+            {w:4, d:"Wednesday", s:"Cardio+Abs", e:"Plank", g:"Plank", h:"Plank", set:1, rL:30, rH:60, r:"tech", b:0, isBW:false, n:"Glute"},
+            {w:4, d:"Wednesday", s:"Cardio+Abs", e:"Plank", g:"Plank", h:"Plank", set:2, rL:30, rH:60, r:"tech", b:0, isBW:false, n:"Glute"},
+            {w:4, d:"Wednesday", s:"Cardio+Abs", e:"Plank", g:"Plank", h:"Plank", set:3, rL:30, rH:60, r:"tech", b:0, isBW:false, n:"Glute"},
+            {w:4, d:"Wednesday", s:"Cardio+Abs", e:"Hollow Hold", g:"Hollow", h:"Hollow", set:1, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Ribs"},
+            {w:4, d:"Wednesday", s:"Cardio+Abs", e:"Hollow Hold", g:"Hollow", h:"Hollow", set:2, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Ribs"},
+            {w:4, d:"Wednesday", s:"Cardio+Abs", e:"Hollow Hold", g:"Hollow", h:"Hollow", set:3, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Ribs"},
+            {w:4, d:"Wednesday", s:"Cardio+Abs", e:"Hanging Knee Raise", g:"HKR", h:"Crunch", set:1, rL:8, rH:15, r:"1 RIR", b:0, isBW:false, n:"PPT"},
+            {w:4, d:"Wednesday", s:"Cardio+Abs", e:"Hanging Knee Raise", g:"HKR", h:"Crunch", set:2, rL:8, rH:15, r:"1 RIR", b:0, isBW:false, n:"PPT"},
+            {w:4, d:"Wednesday", s:"Cardio+Abs", e:"Hanging Knee Raise", g:"HKR", h:"Crunch", set:3, rL:8, rH:15, r:"1 RIR", b:0, isBW:false, n:"PPT"},
+            {w:4, d:"Wednesday", s:"Cardio+Abs", e:"Deadbug", g:"Deadbug", h:"Deadbug", set:1, rL:6, rH:10, r:"1 RIR", b:0, isBW:false, n:"Control"},
+            {w:4, d:"Wednesday", s:"Cardio+Abs", e:"Deadbug", g:"Deadbug", h:"Deadbug", set:2, rL:6, rH:10, r:"1 RIR", b:0, isBW:false, n:"Control"},
+
+            // W4 THURSDAY
+            {w:4, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", set:1, rL:10, rH:15, r:"1 RIR", b:155, isBW:false, n:"ROM"},
+            {w:4, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", set:2, rL:10, rH:15, r:"1 RIR", b:155, isBW:false, n:"ROM"},
+            {w:4, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", set:3, rL:10, rH:15, r:"1 RIR", b:155, isBW:false, n:"ROM"},
+            {w:4, d:"Thursday", s:"Legs Vol", e:"Romanian Split Squat", g:"RSS", h:"Split", set:1, rL:10, rH:15, r:"1 RIR", b:30, isBW:false, n:"Stride"},
+            {w:4, d:"Thursday", s:"Legs Vol", e:"Romanian Split Squat", g:"RSS", h:"Split", set:2, rL:10, rH:15, r:"1 RIR", b:30, isBW:false, n:"Stride"},
+            {w:4, d:"Thursday", s:"Legs Vol", e:"Walking Lunge", g:"Lunge", h:"Reverse", set:1, rL:12, rH:20, r:"1 RIR", b:30, isBW:false, n:"Steps"},
+            {w:4, d:"Thursday", s:"Legs Vol", e:"Walking Lunge", g:"Lunge", h:"Reverse", set:2, rL:12, rH:20, r:"1 RIR", b:30, isBW:false, n:"Steps"},
+            {w:4, d:"Thursday", s:"Legs Vol", e:"Cable Kickback", g:"Cable", h:"Band", set:1, rL:15, rH:20, r:"1 RIR", b:15, isBW:false, n:"Control"},
+            {w:4, d:"Thursday", s:"Legs Vol", e:"Cable Kickback", g:"Cable", h:"Band", set:2, rL:15, rH:20, r:"1 RIR", b:15, isBW:false, n:"Control"},
+            {w:4, d:"Thursday", s:"Legs Vol", e:"Abduction", g:"Abduction", h:"Band", set:1, rL:20, rH:30, r:"1 RIR", b:0, isBW:false, n:"Med"},
+            {w:4, d:"Thursday", s:"Legs Vol", e:"Abduction", g:"Abduction", h:"Band", set:2, rL:20, rH:30, r:"1 RIR", b:0, isBW:false, n:"Med"},
+
+            // W4 FRIDAY
+            {w:4, d:"Friday", s:"Upper+Comp", e:"Push-Up", g:"PU", h:"PU", set:1, rL:6, rH:12, r:"1 RIR", b:0, isBW:true, n:"Tension"},
+            {w:4, d:"Friday", s:"Upper+Comp", e:"Push-Up", g:"PU", h:"PU", set:2, rL:6, rH:12, r:"1 RIR", b:0, isBW:true, n:"Tension"},
+            {w:4, d:"Friday", s:"Upper+Comp", e:"Push-Up", g:"PU", h:"PU", set:3, rL:6, rH:12, r:"1 RIR", b:0, isBW:true, n:"Tension"},
+            {w:4, d:"Friday", s:"Upper+Comp", e:"Single-Arm Row", g:"Row", h:"DB", set:1, rL:8, rH:12, r:"1 RIR", b:45, isBW:false, n:"Rib"},
+            {w:4, d:"Friday", s:"Upper+Comp", e:"Single-Arm Row", g:"Row", h:"DB", set:2, rL:8, rH:12, r:"1 RIR", b:45, isBW:false, n:"Rib"},
+            {w:4, d:"Friday", s:"Upper+Comp", e:"Single-Arm Row", g:"Row", h:"DB", set:3, rL:8, rH:12, r:"1 RIR", b:45, isBW:false, n:"Rib"},
+            {w:4, d:"Friday", s:"Upper+Comp", e:"Negative Pull-Up", g:"Neg", h:"Band", set:1, rL:3, rH:5, r:"ctrl", b:0, isBW:true, n:"Lower"},
+            {w:4, d:"Friday", s:"Upper+Comp", e:"Negative Pull-Up", g:"Neg", h:"Band", set:2, rL:3, rH:5, r:"ctrl", b:0, isBW:true, n:"Lower"},
+            {w:4, d:"Friday", s:"Upper+Comp", e:"Negative Pull-Up", g:"Neg", h:"Band", set:3, rL:3, rH:5, r:"ctrl", b:0, isBW:true, n:"Lower"},
+            {w:4, d:"Friday", s:"Upper+Comp", e:"L-Hold", g:"L", h:"Par", set:1, rL:10, rH:25, r:"tech", b:0, isBW:false, n:"Drive"},
+            {w:4, d:"Friday", s:"Upper+Comp", e:"Straddle Leg Lift", g:"Straddle", h:"Straddle", set:1, rL:6, rH:12, r:"tech", b:0, isBW:false, n:"Tall"},
+            {w:4, d:"Friday", s:"Upper+Comp", e:"Compression Lift", g:"Comp", h:"Band", set:1, rL:6, rH:12, r:"1 RIR", b:0, isBW:false, n:"Tech"},
+            {w:4, d:"Friday", s:"Upper+Comp", e:"Compression Lift", g:"Comp", h:"Band", set:2, rL:6, rH:12, r:"1 RIR", b:0, isBW:false, n:"Tech"},
+            {w:4, d:"Friday", s:"Upper+Comp", e:"Compression Lift", g:"Comp", h:"Band", set:3, rL:6, rH:12, r:"1 RIR", b:0, isBW:false, n:"Tech"},
+            {w:4, d:"Friday", s:"Upper+Comp", e:"Table Top", g:"Table", h:"Table", set:1, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Hold"},
+            {w:4, d:"Friday", s:"Upper+Comp", e:"Table Top", g:"Table", h:"Table", set:2, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Hold"},
+
+            // W4 WEEKEND
+            {w:4, d:"Saturday", s:"Recovery", e:"Rest/Stretch", g:"Stretch", h:"Stretch", set:1, rL:30, rH:60, r:"easy", b:0, isBW:false, n:"Optional"},
+            {w:4, d:"Sunday", s:"Aerial", e:"Aerial Class", g:"Silks", h:"Silks", set:1, rL:45, rH:75, r:"skill", b:0, isBW:false, n:"Alternate"},
+
+            // ==================== WEEK 5 ====================
+            // W5 MONDAY
+            {w:5, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell", h:"DB", set:1, rL:6, rH:10, r:"0-1 RIR", b:110, isBW:false, n:"Pause"},
+            {w:5, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell", h:"DB", set:2, rL:6, rH:10, r:"0-1 RIR", b:110, isBW:false, n:"Pause"},
+            {w:5, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell", h:"DB", set:3, rL:6, rH:10, r:"0-1 RIR", b:110, isBW:false, n:"Pause"},
+            {w:5, d:"Monday", s:"Legs/Glutes", e:"Smith Squat", g:"Smith", h:"Goblet", set:1, rL:6, rH:10, r:"0-1 RIR", b:110, isBW:false, n:"Deep"},
+            {w:5, d:"Monday", s:"Legs/Glutes", e:"Smith Squat", g:"Smith", h:"Goblet", set:2, rL:6, rH:10, r:"0-1 RIR", b:110, isBW:false, n:"Deep"},
+            {w:5, d:"Monday", s:"Legs/Glutes", e:"RDL", g:"Romanian", h:"DB", set:1, rL:8, rH:10, r:"0-1 RIR", b:20, isBW:false, n:"Hips"},
+            {w:5, d:"Monday", s:"Legs/Glutes", e:"RDL", g:"Romanian", h:"DB", set:2, rL:8, rH:10, r:"0-1 RIR", b:20, isBW:false, n:"Hips"},
+            {w:5, d:"Monday", s:"Legs/Glutes", e:"Single Leg Press", g:"SLP", h:"Split", set:1, rL:10, rH:12, r:"0-1 RIR", b:110, isBW:false, n:"ROM"},
+            {w:5, d:"Monday", s:"Legs/Glutes", e:"Single Leg Press", g:"SLP", h:"Split", set:2, rL:10, rH:12, r:"0-1 RIR", b:110, isBW:false, n:"ROM"},
+
+            // W5 TUESDAY
+            {w:5, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"PU", h:"Band", set:1, rL:4, rH:8, r:"0-1 RIR", b:0, isBW:true, n:"Hang"},
+            {w:5, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"PU", h:"Band", set:2, rL:4, rH:8, r:"0-1 RIR", b:0, isBW:true, n:"Hang"},
+            {w:5, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"PU", h:"Band", set:3, rL:4, rH:8, r:"0-1 RIR", b:0, isBW:true, n:"Hang"},
+            {w:5, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"PU", h:"Band", set:4, rL:4, rH:8, r:"0-1 RIR", b:0, isBW:true, n:"Hang"},
+            {w:5, d:"Tuesday", s:"Upper/Aerial", e:"Single-Arm Row", g:"Row", h:"DB", set:1, rL:8, rH:12, r:"0-1 RIR", b:50, isBW:false, n:"Rib"},
+            {w:5, d:"Tuesday", s:"Upper/Aerial", e:"Single-Arm Row", g:"Row", h:"DB", set:2, rL:8, rH:12, r:"0-1 RIR", b:50, isBW:false, n:"Rib"},
+            {w:5, d:"Tuesday", s:"Upper/Aerial", e:"Single-Arm Row", g:"Row", h:"DB", set:3, rL:8, rH:12, r:"0-1 RIR", b:50, isBW:false, n:"Rib"},
+            {w:5, d:"Tuesday", s:"Upper/Aerial", e:"Lat Pulldown", g:"Lat", h:"Band", set:1, rL:8, rH:12, r:"0-1 RIR", b:20, isBW:false, n:"Elbow"},
+            {w:5, d:"Tuesday", s:"Upper/Aerial", e:"Lat Pulldown", g:"Lat", h:"Band", set:2, rL:8, rH:12, r:"0-1 RIR", b:20, isBW:false, n:"Elbow"},
+            {w:5, d:"Tuesday", s:"Upper/Aerial", e:"Lat Pulldown", g:"Lat", h:"Band", set:3, rL:8, rH:12, r:"0-1 RIR", b:20, isBW:false, n:"Elbow"},
+            {w:5, d:"Tuesday", s:"Upper/Aerial", e:"Scapular Pull-Up", g:"Scapular", h:"Band", set:1, rL:6, rH:10, r:"0-1 RIR", b:0, isBW:true, n:"Shoulder"},
+            {w:5, d:"Tuesday", s:"Upper/Aerial", e:"Scapular Pull-Up", g:"Scapular", h:"Band", set:2, rL:6, rH:10, r:"0-1 RIR", b:0, isBW:true, n:"Shoulder"},
+            {w:5, d:"Tuesday", s:"Upper/Aerial", e:"Face Pull", g:"Face", h:"Band", set:1, rL:12, rH:15, r:"0-1 RIR", b:0, isBW:false, n:"Rear"},
+            {w:5, d:"Tuesday", s:"Upper/Aerial", e:"Face Pull", g:"Face", h:"Band", set:2, rL:12, rH:15, r:"0-1 RIR", b:0, isBW:false, n:"Rear"},
+
+            // W5 WEDNESDAY
+            {w:5, d:"Wednesday", s:"Cardio+Abs", e:"Zone 2 Cardio", g:"Tread", h:"Jog", set:1, rL:20, rH:35, r:"easy", b:0, isBW:false, n:"Steady"},
+            {w:5, d:"Wednesday", s:"Cardio+Abs", e:"Plank", g:"Plank", h:"Plank", set:1, rL:30, rH:60, r:"tech", b:0, isBW:false, n:"Glute"},
+            {w:5, d:"Wednesday", s:"Cardio+Abs", e:"Plank", g:"Plank", h:"Plank", set:2, rL:30, rH:60, r:"tech", b:0, isBW:false, n:"Glute"},
+            {w:5, d:"Wednesday", s:"Cardio+Abs", e:"Plank", g:"Plank", h:"Plank", set:3, rL:30, rH:60, r:"tech", b:0, isBW:false, n:"Glute"},
+            {w:5, d:"Wednesday", s:"Cardio+Abs", e:"Hollow Hold", g:"Hollow", h:"Hollow", set:1, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Ribs"},
+            {w:5, d:"Wednesday", s:"Cardio+Abs", e:"Hollow Hold", g:"Hollow", h:"Hollow", set:2, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Ribs"},
+            {w:5, d:"Wednesday", s:"Cardio+Abs", e:"Hollow Hold", g:"Hollow", h:"Hollow", set:3, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Ribs"},
+            {w:5, d:"Wednesday", s:"Cardio+Abs", e:"Hanging Knee Raise", g:"HKR", h:"Crunch", set:1, rL:8, rH:15, r:"0-1 RIR", b:0, isBW:false, n:"PPT"},
+            {w:5, d:"Wednesday", s:"Cardio+Abs", e:"Hanging Knee Raise", g:"HKR", h:"Crunch", set:2, rL:8, rH:15, r:"0-1 RIR", b:0, isBW:false, n:"PPT"},
+            {w:5, d:"Wednesday", s:"Cardio+Abs", e:"Hanging Knee Raise", g:"HKR", h:"Crunch", set:3, rL:8, rH:15, r:"0-1 RIR", b:0, isBW:false, n:"PPT"},
+            {w:5, d:"Wednesday", s:"Cardio+Abs", e:"Deadbug", g:"Deadbug", h:"Deadbug", set:1, rL:6, rH:10, r:"0-1 RIR", b:0, isBW:false, n:"Control"},
+            {w:5, d:"Wednesday", s:"Cardio+Abs", e:"Deadbug", g:"Deadbug", h:"Deadbug", set:2, rL:6, rH:10, r:"0-1 RIR", b:0, isBW:false, n:"Control"},
+
+            // W5 THURSDAY
+            {w:5, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", set:1, rL:10, rH:15, r:"0-1 RIR", b:160, isBW:false, n:"ROM"},
+            {w:5, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", set:2, rL:10, rH:15, r:"0-1 RIR", b:160, isBW:false, n:"ROM"},
+            {w:5, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", set:3, rL:10, rH:15, r:"0-1 RIR", b:160, isBW:false, n:"ROM"},
+            {w:5, d:"Thursday", s:"Legs Vol", e:"Romanian Split Squat", g:"RSS", h:"Split", set:1, rL:10, rH:15, r:"0-1 RIR", b:35, isBW:false, n:"Stride"},
+            {w:5, d:"Thursday", s:"Legs Vol", e:"Romanian Split Squat", g:"RSS", h:"Split", set:2, rL:10, rH:15, r:"0-1 RIR", b:35, isBW:false, n:"Stride"},
+            {w:5, d:"Thursday", s:"Legs Vol", e:"Walking Lunge", g:"Lunge", h:"Reverse", set:1, rL:12, rH:20, r:"0-1 RIR", b:35, isBW:false, n:"Steps"},
+            {w:5, d:"Thursday", s:"Legs Vol", e:"Walking Lunge", g:"Lunge", h:"Reverse", set:2, rL:12, rH:20, r:"0-1 RIR", b:35, isBW:false, n:"Steps"},
+            {w:5, d:"Thursday", s:"Legs Vol", e:"Cable Kickback", g:"Cable", h:"Band", set:1, rL:15, rH:20, r:"0-1 RIR", b:20, isBW:false, n:"Control"},
+            {w:5, d:"Thursday", s:"Legs Vol", e:"Cable Kickback", g:"Cable", h:"Band", set:2, rL:15, rH:20, r:"0-1 RIR", b:20, isBW:false, n:"Control"},
+            {w:5, d:"Thursday", s:"Legs Vol", e:"Abduction", g:"Abduction", h:"Band", set:1, rL:20, rH:30, r:"0-1 RIR", b:0, isBW:false, n:"Med"},
+            {w:5, d:"Thursday", s:"Legs Vol", e:"Abduction", g:"Abduction", h:"Band", set:2, rL:20, rH:30, r:"0-1 RIR", b:0, isBW:false, n:"Med"},
+
+            // W5 FRIDAY
+            {w:5, d:"Friday", s:"Upper+Comp", e:"Push-Up", g:"PU", h:"PU", set:1, rL:6, rH:12, r:"0-1 RIR", b:0, isBW:true, n:"Tension"},
+            {w:5, d:"Friday", s:"Upper+Comp", e:"Push-Up", g:"PU", h:"PU", set:2, rL:6, rH:12, r:"0-1 RIR", b:0, isBW:true, n:"Tension"},
+            {w:5, d:"Friday", s:"Upper+Comp", e:"Push-Up", g:"PU", h:"PU", set:3, rL:6, rH:12, r:"0-1 RIR", b:0, isBW:true, n:"Tension"},
+            {w:5, d:"Friday", s:"Upper+Comp", e:"Single-Arm Row", g:"Row", h:"DB", set:1, rL:8, rH:12, r:"0-1 RIR", b:50, isBW:false, n:"Rib"},
+            {w:5, d:"Friday", s:"Upper+Comp", e:"Single-Arm Row", g:"Row", h:"DB", set:2, rL:8, rH:12, r:"0-1 RIR", b:50, isBW:false, n:"Rib"},
+            {w:5, d:"Friday", s:"Upper+Comp", e:"Single-Arm Row", g:"Row", h:"DB", set:3, rL:8, rH:12, r:"0-1 RIR", b:50, isBW:false, n:"Rib"},
+            {w:5, d:"Friday", s:"Upper+Comp", e:"Negative Pull-Up", g:"Neg", h:"Band", set:1, rL:3, rH:5, r:"ctrl", b:0, isBW:true, n:"Lower"},
+            {w:5, d:"Friday", s:"Upper+Comp", e:"Negative Pull-Up", g:"Neg", h:"Band", set:2, rL:3, rH:5, r:"ctrl", b:0, isBW:true, n:"Lower"},
+            {w:5, d:"Friday", s:"Upper+Comp", e:"Negative Pull-Up", g:"Neg", h:"Band", set:3, rL:3, rH:5, r:"ctrl", b:0, isBW:true, n:"Lower"},
+            {w:5, d:"Friday", s:"Upper+Comp", e:"L-Hold", g:"L", h:"Par", set:1, rL:10, rH:25, r:"tech", b:0, isBW:false, n:"Drive"},
+            {w:5, d:"Friday", s:"Upper+Comp", e:"Straddle Leg Lift", g:"Straddle", h:"Straddle", set:1, rL:6, rH:12, r:"tech", b:0, isBW:false, n:"Tall"},
+            {w:5, d:"Friday", s:"Upper+Comp", e:"Compression Lift", g:"Comp", h:"Band", set:1, rL:6, rH:12, r:"0-1 RIR", b:0, isBW:false, n:"Tech"},
+            {w:5, d:"Friday", s:"Upper+Comp", e:"Compression Lift", g:"Comp", h:"Band", set:2, rL:6, rH:12, r:"0-1 RIR", b:0, isBW:false, n:"Tech"},
+            {w:5, d:"Friday", s:"Upper+Comp", e:"Compression Lift", g:"Comp", h:"Band", set:3, rL:6, rH:12, r:"0-1 RIR", b:0, isBW:false, n:"Tech"},
+            {w:5, d:"Friday", s:"Upper+Comp", e:"Table Top", g:"Table", h:"Table", set:1, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Hold"},
+            {w:5, d:"Friday", s:"Upper+Comp", e:"Table Top", g:"Table", h:"Table", set:2, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Hold"},
+
+            // W5 WEEKEND
+            {w:5, d:"Saturday", s:"Recovery", e:"Rest/Stretch", g:"Stretch", h:"Stretch", set:1, rL:30, rH:60, r:"easy", b:0, isBW:false, n:"Optional"},
+            {w:5, d:"Sunday", s:"Aerial", e:"Aerial Class", g:"Silks", h:"Silks", set:1, rL:45, rH:75, r:"skill", b:0, isBW:false, n:"Alternate"},
+
+            // ==================== WEEK 6 (DELOAD) ====================
+            // W6 MONDAY
+            {w:6, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell", h:"DB", set:1, rL:6, rH:10, r:"4+ RIR", b:45, isBW:false, n:"Light"},
+            {w:6, d:"Monday", s:"Legs/Glutes", e:"Hip Thrust", g:"Barbell", h:"DB", set:2, rL:6, rH:10, r:"4+ RIR", b:45, isBW:false, n:"Light"},
+            {w:6, d:"Monday", s:"Legs/Glutes", e:"Smith Squat", g:"Smith", h:"Goblet", set:1, rL:6, rH:10, r:"4+ RIR", b:45, isBW:false, n:"Light"},
+            {w:6, d:"Monday", s:"Legs/Glutes", e:"RDL", g:"Romanian", h:"DB", set:1, rL:8, rH:10, r:"4+ RIR", b:0, isBW:false, n:"Light"},
+            {w:6, d:"Monday", s:"Legs/Glutes", e:"Single Leg Press", g:"SLP", h:"Split", set:1, rL:10, rH:12, r:"4+ RIR", b:45, isBW:false, n:"Light"},
+
+            // W6 TUESDAY
+            {w:6, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"PU", h:"Band", set:1, rL:4, rH:8, r:"4+ RIR", b:0, isBW:true, n:"Light"},
+            {w:6, d:"Tuesday", s:"Upper/Aerial", e:"Pull-Up", g:"PU", h:"Band", set:2, rL:4, rH:8, r:"4+ RIR", b:0, isBW:true, n:"Light"},
+            {w:6, d:"Tuesday", s:"Upper/Aerial", e:"Single-Arm Row", g:"Row", h:"DB", set:1, rL:8, rH:12, r:"4+ RIR", b:15, isBW:false, n:"Light"},
+            {w:6, d:"Tuesday", s:"Upper/Aerial", e:"Lat Pulldown", g:"Lat", h:"Band", set:1, rL:8, rH:12, r:"4+ RIR", b:0, isBW:false, n:"Light"},
+            {w:6, d:"Tuesday", s:"Upper/Aerial", e:"Face Pull", g:"Face", h:"Band", set:1, rL:12, rH:15, r:"4+ RIR", b:0, isBW:false, n:"Light"},
+
+            // W6 WEDNESDAY
+            {w:6, d:"Wednesday", s:"Cardio+Abs", e:"Zone 2 Cardio", g:"Tread", h:"Jog", set:1, rL:20, rH:35, r:"easy", b:0, isBW:false, n:"Light"},
+            {w:6, d:"Wednesday", s:"Cardio+Abs", e:"Plank", g:"Plank", h:"Plank", set:1, rL:30, rH:60, r:"tech", b:0, isBW:false, n:"Light"},
+            {w:6, d:"Wednesday", s:"Cardio+Abs", e:"Hollow Hold", g:"Hollow", h:"Hollow", set:1, rL:20, rH:40, r:"tech", b:0, isBW:false, n:"Light"},
+            {w:6, d:"Wednesday", s:"Cardio+Abs", e:"Hanging Knee Raise", g:"HKR", h:"Crunch", set:1, rL:8, rH:15, r:"4+ RIR", b:0, isBW:false, n:"Light"},
+
+            // W6 THURSDAY
+            {w:6, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", set:1, rL:10, rH:15, r:"4+ RIR", b:70, isBW:false, n:"Light"},
+            {w:6, d:"Thursday", s:"Legs Vol", e:"Kas Glute Bridge", g:"KGB", h:"DB", set:2, rL:10, rH:15, r:"4+ RIR", b:70, isBW:false, n:"Light"},
+            {w:6, d:"Thursday", s:"Legs Vol", e:"Romanian Split Squat", g:"RSS", h:"Split", set:1, rL:10, rH:15, r:"4+ RIR", b:10, isBW:false, n:"Light"},
+            {w:6, d:"Thursday", s:"Legs Vol", e:"Walking Lunge", g:"Lunge", h:"Reverse", set:1, rL:12, rH:20, r:"4+ RIR", b:10, isBW:false, n:"Light"},
+            {w:6, d:"Thursday", s:"Legs Vol", e:"Cable Kickback", g:"Cable", h:"Band", set:1, rL:15, rH:20, r:"4+ RIR", b:0, isBW:false, n:"Light"},
+
+            // W6 FRIDAY
+            {w:6, d:"Friday", s:"Upper+Comp", e:"Push-Up", g:"PU", h:"PU", set:1, rL:6, rH:12, r:"4+ RIR", b:0, isBW:true, n:"Light"},
+            {w:6, d:"Friday", s:"Upper+Comp", e:"Push-Up", g:"PU", h:"PU", set:2, rL:6, rH:12, r:"4+ RIR", b:0, isBW:true, n:"Light"},
+            {w:6, d:"Friday", s:"Upper+Comp", e:"Single-Arm Row", g:"Row", h:"DB", set:1, rL:8, rH:12, r:"4+ RIR", b:15, isBW:false, n:"Light"},
+            {w:6, d:"Friday", s:"Upper+Comp", e:"Negative Pull-Up", g:"Neg", h:"Band", set:1, rL:3, rH:5, r:"ctrl", b:0, isBW:true, n:"Light"},
+            {w:6, d:"Friday", s:"Upper+Comp", e:"L-Hold", g:"L", h:"Par", set:1, rL:10, rH:25, r:"tech", b:0, isBW:false, n:"Light"},
+
+            // W6 WEEKEND
+            {w:6, d:"Saturday", s:"Recovery", e:"Rest/Stretch", g:"Stretch", h:"Stretch", set:1, rL:30, rH:60, r:"easy", b:0, isBW:false, n:"Light"},
+            {w:6, d:"Sunday", s:"Aerial", e:"Aerial Class", g:"Silks", h:"Silks", set:1, rL:45, rH:75, r:"skill", b:0, isBW:false, n:"Light"},
         ];
 
         function switchTab(tab) {
@@ -774,8 +1292,8 @@
                 const rirMap = {1: '3 RIR', 2: '2 RIR', 3: '1-2 RIR', 4: '1 RIR', 5: '0-1 RIR', 6: '4+ RIR (Deload)'};
 
                 html += `<div class="program-week">
-                    <h3>Week ${w} - ${rirMap[w]}</h3>
-                    <div class="exercises-grid">`;
+                    <h2>WEEK ${w} — ${rirMap[w]}</h2>
+                    <div class="week-days">`;
 
                 days.forEach(day => {
                     const dayExercises = weekData.filter(e => e.d === day);
@@ -788,33 +1306,43 @@
                         exercisesGrouped[ex.e].push(ex);
                     });
 
+                    html += `<div class="day-block">
+                        <h3>${day}</h3>
+                        <div class="session-type">${dayExercises[0].s}</div>`;
+
                     for (const [exName, exList] of Object.entries(exercisesGrouped)) {
                         const firstEx = exList[0];
                         const suggestedWt = getSuggestedWeight(firstEx, firstEx.b);
+                        const setStr = exList.length === 1 ? `${exList.length} set` : `${exList.length} sets`;
                         
-                        html += `<div class="exercise-card">
-                            <div class="day">${day}</div>
-                            <h4>${exName}</h4>
-                            <div class="details">
-                                <div class="detail-row">
-                                    <span class="detail-label">Sets/Reps:</span>
-                                    <span class="detail-value">${exList.length}x${firstEx.rL}-${firstEx.rH}</span>
+                        html += `<div class="exercise-item">
+                            <div class="exercise-item-name">${exName}</div>
+                            <div class="exercise-item-details">
+                                <div class="detail">
+                                    <span class="detail-label">Sets:</span>
+                                    <span class="detail-value">${setStr} × ${firstEx.rL}-${firstEx.rH}</span>
                                 </div>
-                                <div class="detail-row">
+                                <div class="detail">
                                     <span class="detail-label">Weight:</span>
-                                    <span class="detail-value">${suggestedWt}${firstEx.isBW ? ' (BW)' : 'lb'}</span>
+                                    <span class="detail-value">${suggestedWt}${firstEx.isBW ? ' BW' : 'lb'}</span>
                                 </div>
-                                <div class="detail-row">
+                                <div class="detail">
                                     <span class="detail-label">RIR:</span>
                                     <span class="detail-value">${firstEx.r}</span>
                                 </div>
-                                <div class="detail-row">
-                                    <span class="detail-label">Notes:</span>
-                                    <span class="detail-value" style="font-size: 12px;">${firstEx.n}</span>
+                                <div class="detail">
+                                    <span class="detail-label">Gym/Home:</span>
+                                    <span class="detail-value">${firstEx.g} / ${firstEx.h}</span>
                                 </div>
+                                ${firstEx.n ? `<div class="detail">
+                                    <span class="detail-label">Notes:</span>
+                                    <span class="detail-value">${firstEx.n}</span>
+                                </div>` : ''}
                             </div>
                         </div>`;
                     }
+
+                    html += `</div>`;
                 });
 
                 html += `</div></div>`;
@@ -872,17 +1400,67 @@
         }
 
         function saveData() {
+            const week = parseInt(document.getElementById("weekSelect").value);
+            const day = document.getElementById("daySelect").value;
             const savedData = loadSavedData();
+            
             document.querySelectorAll('input[data-key]').forEach(input => {
                 const key = input.dataset.key;
-                if (key) savedData[key] = input.value;
+                if (key) {
+                    savedData[key] = input.value;
+                    
+                    // If Google Sheets is configured and this row is complete, send it
+                    if (GOOGLE_SHEET_URL_GLOBAL && key.includes('-wt') && input.value) {
+                        const idx = key.split('-')[2];
+                        const exercises = programData.filter(e => e.w === week && e.d === day);
+                        if (exercises[idx]) {
+                            const ex = exercises[idx];
+                            const actualWt = savedData[`${week}-${day}-${idx}-wt`] || '';
+                            const actualReps = savedData[`${week}-${day}-${idx}-reps`] || '';
+                            const actualRir = savedData[`${week}-${day}-${idx}-rir`] || '';
+                            if (actualWt && actualReps) {
+                                sendToGoogleSheets(week, day, ex.e, ex.set, ex.b, actualWt, actualReps, actualRir, ex.n);
+                            }
+                        }
+                    }
+                }
             });
             localStorage.setItem('workoutData', JSON.stringify(savedData));
             updateWorkout();
         }
 
+        function saveGSUrl() {
+            const url = document.getElementById('gsInput').value;
+            if (url.includes('script.google.com')) {
+                localStorage.setItem('gsUrl', url);
+                document.querySelector('[onclick="saveGSUrl()"]').textContent = '✓ Saved!';
+                setTimeout(() => {
+                    document.querySelector('[onclick="saveGSUrl()"]').textContent = 'Save URL';
+                }, 2000);
+                // Update the global variable
+                window.GOOGLE_SHEET_URL_GLOBAL = url;
+            } else {
+                alert('Please paste a valid Google Apps Script URL');
+            }
+        }
+
+        function loadGSUrl() {
+            const saved = localStorage.getItem('gsUrl');
+            if (saved) {
+                document.getElementById('gsInput').value = saved;
+                window.GOOGLE_SHEET_URL_GLOBAL = saved;
+            }
+        }
+
+        function sendToGoogleSheetsFromRow(week, day, exerciseName, setNum, suggestedWt, actualWt, reps, rir) {
+            if (!window.GOOGLE_SHEET_URL_GLOBAL) return;
+            
+            sendToGoogleSheets(week, day, exerciseName, setNum, suggestedWt, actualWt, reps, rir, '');
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             loadBW();
+            loadGSUrl();
             updateWorkout();
         });
     </script>
