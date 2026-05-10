@@ -1,5 +1,27 @@
 import React, { useEffect, useState } from "react";
 
+import {
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+);
+
 const BodyMeasurements = () => {
   const [measurements, setMeasurements] = useState({
     date: new Date().toISOString().split("T")[0],
@@ -65,6 +87,96 @@ const BodyMeasurements = () => {
       thighs: "",
       arm: "",
     });
+  };
+
+  const createMeasurementChart = (measurementType, label, unit) => {
+    // Sort measurements by date
+    const sortedMeasurements = [...measurementHistory].sort(
+      (a, b) => new Date(a.date) - new Date(b.date),
+    );
+
+    const data = sortedMeasurements
+      .filter((m) => m[measurementType] && m[measurementType] !== "")
+      .map((m) => ({
+        date: new Date(m.date).toLocaleDateString(),
+        value: parseFloat(m[measurementType]),
+      }));
+
+    if (data.length === 0) {
+      return null;
+    }
+
+    const chartData = {
+      labels: data.map((d) => d.date),
+      datasets: [
+        {
+          label: `${label} (${unit})`,
+          data: data.map((d) => d.value),
+          borderColor: "#ffd700",
+          backgroundColor: "rgba(255, 215, 0, 0.1)",
+          tension: 0.4,
+          pointBackgroundColor: "#ffd700",
+          pointBorderColor: "#1a1a2e",
+          pointBorderWidth: 2,
+          pointRadius: 5,
+        },
+      ],
+    };
+
+    const options = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: "top",
+          labels: {
+            color: "#1a1a2e",
+            font: {
+              size: 12,
+              weight: "bold",
+            },
+          },
+        },
+        title: {
+          display: true,
+          text: `${label} Progress`,
+          color: "#1a1a2e",
+          font: {
+            size: 14,
+            weight: "bold",
+          },
+        },
+      },
+      scales: {
+        y: {
+          beginAtZero: false,
+          grid: {
+            color: "rgba(0, 0, 0, 0.1)",
+          },
+          ticks: {
+            color: "#1a1a2e",
+            callback: function (value) {
+              return value + ` ${unit}`;
+            },
+          },
+        },
+        x: {
+          grid: {
+            color: "rgba(0, 0, 0, 0.1)",
+          },
+          ticks: {
+            color: "#1a1a2e",
+            maxTicksLimit: 7, // Limit number of date labels
+          },
+        },
+      },
+      interaction: {
+        intersect: false,
+        mode: "index",
+      },
+    };
+
+    return { data: chartData, options };
   };
 
   return (
@@ -188,99 +300,168 @@ const BodyMeasurements = () => {
             <div className="measurement-chart-wrapper">
               <h4>Bodyweight (lb)</h4>
               <div className="measurement-chart">
-                <p
-                  style={{
-                    textAlign: "center",
-                    color: "#999",
-                    padding: "50px 0",
-                  }}
-                >
-                  Charts will be implemented with Chart.js
-                </p>
+                {(() => {
+                  const chart = createMeasurementChart(
+                    "bodyweight",
+                    "Bodyweight",
+                    "lb",
+                  );
+                  return chart ? (
+                    <Line data={chart.data} options={chart.options} />
+                  ) : (
+                    <p
+                      style={{
+                        textAlign: "center",
+                        color: "#999",
+                        padding: "50px 0",
+                      }}
+                    >
+                      Log measurements to see progress charts
+                    </p>
+                  );
+                })()}
               </div>
             </div>
             <div className="measurement-chart-wrapper">
               <h4>Waist (in)</h4>
               <div className="measurement-chart">
-                <p
-                  style={{
-                    textAlign: "center",
-                    color: "#999",
-                    padding: "50px 0",
-                  }}
-                >
-                  Charts will be implemented with Chart.js
-                </p>
+                {(() => {
+                  const chart = createMeasurementChart("waist", "Waist", "in");
+                  return chart ? (
+                    <Line data={chart.data} options={chart.options} />
+                  ) : (
+                    <p
+                      style={{
+                        textAlign: "center",
+                        color: "#999",
+                        padding: "50px 0",
+                      }}
+                    >
+                      Log measurements to see progress charts
+                    </p>
+                  );
+                })()}
               </div>
             </div>
             <div className="measurement-chart-wrapper">
               <h4>Stomach (in)</h4>
               <div className="measurement-chart">
-                <p
-                  style={{
-                    textAlign: "center",
-                    color: "#999",
-                    padding: "50px 0",
-                  }}
-                >
-                  Charts will be implemented with Chart.js
-                </p>
+                {(() => {
+                  const chart = createMeasurementChart(
+                    "stomach",
+                    "Stomach",
+                    "in",
+                  );
+                  return chart ? (
+                    <Line data={chart.data} options={chart.options} />
+                  ) : (
+                    <p
+                      style={{
+                        textAlign: "center",
+                        color: "#999",
+                        padding: "50px 0",
+                      }}
+                    >
+                      Log measurements to see progress charts
+                    </p>
+                  );
+                })()}
               </div>
             </div>
             <div className="measurement-chart-wrapper">
               <h4>Hips (in)</h4>
               <div className="measurement-chart">
-                <p
-                  style={{
-                    textAlign: "center",
-                    color: "#999",
-                    padding: "50px 0",
-                  }}
-                >
-                  Charts will be implemented with Chart.js
-                </p>
+                {(() => {
+                  const chart = createMeasurementChart("hips", "Hips", "in");
+                  return chart ? (
+                    <Line data={chart.data} options={chart.options} />
+                  ) : (
+                    <p
+                      style={{
+                        textAlign: "center",
+                        color: "#999",
+                        padding: "50px 0",
+                      }}
+                    >
+                      Log measurements to see progress charts
+                    </p>
+                  );
+                })()}
               </div>
             </div>
             <div className="measurement-chart-wrapper">
               <h4>Glutes (in)</h4>
               <div className="measurement-chart">
-                <p
-                  style={{
-                    textAlign: "center",
-                    color: "#999",
-                    padding: "50px 0",
-                  }}
-                >
-                  Charts will be implemented with Chart.js
-                </p>
+                {(() => {
+                  const chart = createMeasurementChart(
+                    "glutes",
+                    "Glutes",
+                    "in",
+                  );
+                  return chart ? (
+                    <Line data={chart.data} options={chart.options} />
+                  ) : (
+                    <p
+                      style={{
+                        textAlign: "center",
+                        color: "#999",
+                        padding: "50px 0",
+                      }}
+                    >
+                      Log measurements to see progress charts
+                    </p>
+                  );
+                })()}
               </div>
             </div>
             <div className="measurement-chart-wrapper">
               <h4>Thighs (in)</h4>
               <div className="measurement-chart">
-                <p
-                  style={{
-                    textAlign: "center",
-                    color: "#999",
-                    padding: "50px 0",
-                  }}
-                >
-                  Charts will be implemented with Chart.js
-                </p>
+                {(() => {
+                  const chart = createMeasurementChart(
+                    "thighs",
+                    "Thighs",
+                    "in",
+                  );
+                  return chart ? (
+                    <Line data={chart.data} options={chart.options} />
+                  ) : (
+                    <p
+                      style={{
+                        textAlign: "center",
+                        color: "#999",
+                        padding: "50px 0",
+                      }}
+                    >
+                      Log measurements to see progress charts
+                    </p>
+                  );
+                })()}
               </div>
             </div>
             <div className="measurement-chart-wrapper">
               <h4>Left Arm Bicep (in)</h4>
               <div className="measurement-chart">
-                <p
-                  style={{
-                    textAlign: "center",
-                    color: "#999",
-                    padding: "50px 0",
-                  }}
-                >
-                  Charts will be implemented with Chart.js
-                </p>
+                {(() => {
+                  const chart = createMeasurementChart(
+                    "arm",
+                    "Left Arm Bicep",
+                    "in",
+                  );
+                  return chart ? (
+                    <Line data={chart.data} options={chart.options} />
+                  ) : (
+                    <p
+                      style={{
+                        textAlign: "center",
+                        color: "#999",
+                        padding: "50px 0",
+                      }}
+                    >
+                      Log measurements to see progress charts
+                    </p>
+                  );
+                })()}
               </div>
             </div>
           </div>
