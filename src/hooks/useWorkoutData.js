@@ -10,11 +10,14 @@ export const useWorkoutData = () => {
   const [startDate, setStartDate] = useState(workoutUtils.loadStartDate());
   const [inc, setInc] = useState(5);
   const [gsUrl, setGsUrl] = useState(workoutUtils.loadGSUrl());
+  const [programDataState, setProgramDataState] = useState(
+    workoutUtils.loadProgramData(),
+  );
   const [workoutData, setWorkoutData] = useState([]);
   const [stats, setStats] = useState({ exercises: 0, sets: 0, session: "" });
 
   const updateWorkout = () => {
-    const result = processWorkoutData(programData, week, day, bw, inc);
+    const result = processWorkoutData(programDataState, week, day, bw, inc);
     setWorkoutData(result.data);
     setStats(result.stats);
   };
@@ -49,7 +52,7 @@ export const useWorkoutData = () => {
 
   useEffect(() => {
     updateWorkout();
-  }, [week, day, bw, inc]);
+  }, [week, day, bw, inc, programDataState]);
 
   return {
     // State
@@ -61,6 +64,7 @@ export const useWorkoutData = () => {
     gsUrl,
     workoutData,
     stats,
+    programData: programDataState,
 
     // Setters
     setWeek,
@@ -69,6 +73,7 @@ export const useWorkoutData = () => {
     setStartDate,
     setInc,
     setGsUrl,
+    setProgramData: setProgramDataState,
 
     // Actions
     handleInputChange,

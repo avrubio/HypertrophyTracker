@@ -1,3 +1,5 @@
+import { programData } from "../data/programData.js";
+
 // Local storage utilities
 export const storage = {
   get: (key) => localStorage.getItem(key),
@@ -67,6 +69,25 @@ export const workoutUtils = {
 
   saveGSUrl: (url) => {
     storage.set("gsUrl", url);
+  },
+
+  loadProgramData: () => {
+    const saved = storage.get("customProgramData");
+    if (!saved) return programData;
+    try {
+      return JSON.parse(saved);
+    } catch (error) {
+      console.warn("Failed to parse custom program data:", error);
+      return programData;
+    }
+  },
+
+  saveProgramData: (data) => {
+    storage.set("customProgramData", JSON.stringify(data));
+  },
+
+  resetProgramData: () => {
+    storage.remove("customProgramData");
   },
 };
 

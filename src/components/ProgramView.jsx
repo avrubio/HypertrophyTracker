@@ -1,9 +1,8 @@
 import React from "react";
-
-import { programData } from "../data/programData";
 import { workoutUtils } from "../utils/workoutUtils";
 
-const ProgramView = () => {
+const ProgramView = ({ programData }) => {
+  const activeProgramData = programData || workoutUtils.loadProgramData();
   // Generate program data for all weeks
   const generateProgramForWeek = (week) => {
     const getWeekRIR = (baseRIR, weekNum) => {
@@ -19,7 +18,7 @@ const ProgramView = () => {
     };
 
     const weekData = {};
-    programData
+    activeProgramData
       .filter((ex) => ex.w === 1)
       .forEach((ex) => {
         const day = ex.d;

@@ -6,6 +6,7 @@ import ProgressGraphs from "./components/ProgressGraphs";
 import BodyMeasurements from "./components/BodyMeasurements";
 import InfoTerms from "./components/InfoTerms";
 import { useWorkoutData } from "./hooks/useWorkoutData";
+import AdminPanel from "./components/AdminPanel";
 
 function App() {
   const [activeTab, setActiveTab] = useState("daily");
@@ -27,7 +28,7 @@ function App() {
           />
         );
       case "program":
-        return <ProgramView />;
+        return <ProgramView programData={workoutData.programData} />;
       case "graphs":
         return <ProgressGraphs />;
       case "measurements":
@@ -58,6 +59,12 @@ function App() {
           onClick={() => switchTab("program")}
         >
           📊 Full Program
+        </button>
+        <button
+          className={`tab-button ${activeTab === "admin" ? "active" : ""}`}
+          onClick={() => switchTab("admin")}
+        >
+          🛠️ Admin
         </button>
         <button
           className={`tab-button ${activeTab === "graphs" ? "active" : ""}`}
@@ -99,7 +106,14 @@ function App() {
         />
       )}
 
-      {renderTabContent()}
+      {activeTab === "admin" ? (
+        <AdminPanel
+          programData={workoutData.programData}
+          setProgramData={workoutData.setProgramData}
+        />
+      ) : (
+        renderTabContent()
+      )}
     </div>
   );
 }
