@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-import { programData } from "../data/programData.js";
 import { processWorkoutData, workoutUtils } from "../utils/workoutUtils.js";
 
 export const useWorkoutData = () => {

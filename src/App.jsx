@@ -1,12 +1,13 @@
 import { useState } from "react";
-import WorkoutControls from "./components/WorkoutControls";
+
+import AdminPanel from "./components/AdminPanel";
+import BodyMeasurements from "./components/BodyMeasurements";
 import DailyWorkout from "./components/DailyWorkout";
+import InfoTerms from "./components/InfoTerms";
 import ProgramView from "./components/ProgramView";
 import ProgressGraphs from "./components/ProgressGraphs";
-import BodyMeasurements from "./components/BodyMeasurements";
-import InfoTerms from "./components/InfoTerms";
+import WorkoutControls from "./components/WorkoutControls";
 import { useWorkoutData } from "./hooks/useWorkoutData";
-import AdminPanel from "./components/AdminPanel";
 
 function App() {
   const [activeTab, setActiveTab] = useState("daily");

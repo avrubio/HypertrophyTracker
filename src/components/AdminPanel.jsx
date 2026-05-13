@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import { workoutUtils } from "../utils/workoutUtils";
 
 const defaultRow = {
@@ -89,7 +90,9 @@ const AdminPanel = ({ programData, setProgramData }) => {
     <div className="tab-content active admin-panel">
       <h2>🛠️ Admin Program Editor</h2>
       <p>
-        Edit your full workout program here. This editor manages the Week 1 template, and the preview below shows how it expands into the full 6-week progression.
+        Edit your full workout program here. This editor manages the Week 1
+        template, and the preview below shows how it expands into the full
+        6-week progression.
       </p>
 
       <div className="admin-actions">
@@ -105,7 +108,8 @@ const AdminPanel = ({ programData, setProgramData }) => {
       </div>
 
       <div className="admin-note">
-        <strong>Tip:</strong> Add your shoulder rehab and hip flexor exercises to the program below, then save.
+        <strong>Tip:</strong> Add your shoulder rehab and hip flexor exercises
+        to the program below, then save.
       </div>
 
       <div className="admin-table-wrapper">
@@ -187,7 +191,9 @@ const AdminPanel = ({ programData, setProgramData }) => {
                     type="text"
                     value={`${row.rL}-${row.rH}`}
                     onChange={(e) => {
-                      const [rL, rH] = e.target.value.split("-").map((v) => Number(v.trim()) || 0);
+                      const [rL, rH] = e.target.value
+                        .split("-")
+                        .map((v) => Number(v.trim()) || 0);
                       updateRow(index, "rL", rL);
                       updateRow(index, "rH", rH);
                     }}
@@ -225,7 +231,10 @@ const AdminPanel = ({ programData, setProgramData }) => {
                   />
                 </td>
                 <td>
-                  <button className="delete-row" onClick={() => deleteRow(index)}>
+                  <button
+                    className="delete-row"
+                    onClick={() => deleteRow(index)}
+                  >
                     ×
                   </button>
                 </td>
@@ -238,8 +247,9 @@ const AdminPanel = ({ programData, setProgramData }) => {
       <div className="admin-preview">
         <h3>📅 Full 6-Week Plan Preview</h3>
         <p className="preview-note">
-          The chart below shows the full 6-week progression generated from your Week 1 template.
-          Add shoulder rehab, hip flexor, or other accessory work to Week 1 and your full program will update automatically.
+          The chart below shows the full 6-week progression generated from your
+          Week 1 template. Add shoulder rehab, hip flexor, or other accessory
+          work to Week 1 and your full program will update automatically.
         </p>
 
         {[1, 2, 3, 4, 5, 6].map((week) => {
@@ -255,12 +265,17 @@ const AdminPanel = ({ programData, setProgramData }) => {
                     <h5>{day}</h5>
                     <div className="preview-exercises">
                       {exercises.map((exercise, idx) => (
-                        <div key={`${exercise.e}-${idx}`} className="preview-exercise-item">
+                        <div
+                          key={`${exercise.e}-${idx}`}
+                          className="preview-exercise-item"
+                        >
                           <strong>{exercise.e}</strong> • {exercise.s}
                           <div className="preview-row">
                             <span>{exercise.g}</span>
                             <span>{exercise.h}</span>
-                            <span>{exercise.rL}-{exercise.rH}</span>
+                            <span>
+                              {exercise.rL}-{exercise.rH}
+                            </span>
                             <span>{exercise.r}</span>
                           </div>
                         </div>
